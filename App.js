@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import { ApolloProvider, useQuery, gql } from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
@@ -39,12 +40,18 @@ function RootComponent() {
   // }
 
   return (
-    <Container>
+    <>
       <SafeAreaView />
-      {data.pokemons.results.map((item) => (
-        <Pokemon>{item.name}</Pokemon>
-      ))}
-    </Container>
+      <ScrollView>
+        <Container>
+          {data.pokemons.results.map((item) => (
+            <PokemonContainer>
+              <Pokemon>{item.name}</Pokemon>
+            </PokemonContainer>
+          ))}
+        </Container>
+      </ScrollView>
+    </>
   );
 }
 
@@ -52,14 +59,21 @@ const Container = styled.View`
   justify-content: flex-start;
   align-items: center;
   flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const PokemonContainer = styled.TouchableOpacity`
+  background-color: aliceblue;
+  width: ${wp('45%')}px;
+  margin: ${hp('1%')}px;
+  border-radius: 10;
 `;
 
 const Pokemon = styled.Text`
-  background-color: aliceblue;
-  width: 100%;
   justify-content: center;
   align-items: center;
-  margin: ${hp('1%')}px;
+
   font-size: ${hp('2%')}px;
   padding: ${hp('2%')}px;
 `;
