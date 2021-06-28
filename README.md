@@ -19,3 +19,4 @@
 - The Apollo configuration lies in the `apollo.js` file.
 - The file also contains an option (with commented code) to pass an authorization token to the API.
 - [Apollo Client Docs](https://www.apollographql.com/docs/react/v3.0-beta/)
+# Pokemon-React-Native-GQL-App
