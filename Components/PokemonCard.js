@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   heightPercentageToDP as hp,
@@ -6,15 +6,37 @@ import {
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
-import { Text, View } from 'react-native';
+import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function PokemonCard(props) {
   const { pokemon } = props;
   const pokemonName = pokemon.name
+  const [pokemonDetails, setPokemonDetails] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { name: pokemonName},
+    onCompleted: (data) => {
+      setPokemonDetails(data.pokemon.type)
+    }
   });
+
+  console.log(data.pokemon.types);
+
+  const renderItem = ({ item }) => (
+    <Pokemon>{item.type.name}</Pokemon>
+  );
+
+  if (loading) {
+    return(
+    <LoadingIndicatorContainer>
+      <ActivityIndicator size='large' color='#ff0000' />
+    </LoadingIndicatorContainer>);
+  }
+
+  if (error) {
+    console.log('Refetching...');
+    refetch();
+  }
 
 
   return (
@@ -22,7 +44,11 @@ export default function PokemonCard(props) {
       <Pokemon>{pokemon.name}</Pokemon>
       <PokeImage source={{ uri: pokemon.artwork }} />
       <Text>{data.pokemon.types.map(item => item.name)}</Text>
-      <Icon name="pagelines" size={30} color="green" />
+      <FlatList
+            data={data.pokemon.types}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index}
+          />
     </PokemonContainer>
   );
 }
@@ -43,5 +69,11 @@ const Pokemon = styled.Text`
 
 const PokeImage = styled.Image`
   resize-mode: contain;
+  flex: 1;
+`;
+
+const LoadingIndicatorContainer = styled.View`
+  justify-content: flex-start;
+  align-items: center;
   flex: 1;
 `;

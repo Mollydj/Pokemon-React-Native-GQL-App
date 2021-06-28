@@ -24,8 +24,6 @@ function RootComponent() {
     },
   });
 
-  console.log('data', data);
-
   if (loading) {
     return(
     <LoadingIndicatorContainer>
