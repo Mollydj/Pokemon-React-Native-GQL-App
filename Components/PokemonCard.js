@@ -6,6 +6,8 @@ import {
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
+import { Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function PokemonCard(props) {
   const { pokemon } = props;
@@ -14,12 +16,13 @@ export default function PokemonCard(props) {
     variables: { name: pokemonName},
   });
 
-  console.log(data);
 
   return (
     <PokemonContainer>
       <Pokemon>{pokemon.name}</Pokemon>
       <PokeImage source={{ uri: pokemon.artwork }} />
+      <Text>{data.pokemon.types.map(item => item.name)}</Text>
+      <Icon name="pagelines" size={30} color="green" />
     </PokemonContainer>
   );
 }

@@ -18,11 +18,13 @@ import PokemonCard from './Components/PokemonCard';
 function RootComponent() {
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
-    variables: { limit: 4, offset: 1 },
+    variables: { limit: 4, offset: 0 },
     onCompleted: (data) => {
       setPokemonData(data);
     },
   });
+
+  console.log('data', data);
 
   if (loading) {
     return(
@@ -64,10 +66,11 @@ const LoadingIndicatorContainer = styled.View`
   flex: 1;
 `;
 const Container = styled.View`
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
+  /* justify-content: flex-start; */
+  /* flex-direction: row; */
+  /* align-items: center; */
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
 `;
 
 
