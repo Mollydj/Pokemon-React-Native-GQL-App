@@ -2,126 +2,26 @@ import React, { useState } from 'react';
 import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
 import { ApolloProvider, useQuery, gql } from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
-
 import { apolloClient } from './apollo';
+import { GET_POKEMON_BY_NAME } from './GraphQl/queries';
 
-// Imperial I-class Star Destroyer
-const defaultStarshipId = 'c3RhcnNoaXBzOjM=';
 
-const LIST_STARSHIPTS = gql`
-  query listStarships {
-    allStarships {
-      starships {
-        id
-        name
-      }
-    }
-  }
-`;
-
-const GET_STARSHIP = gql`
-  query getStarship($id: ID!) {
-    starship(id: $id) {
-      id
-      name
-      model
-      starshipClass
-      manufacturers
-      length
-      crew
-      costInCredits
-      consumables
-      filmConnection {
-        films {
-          id
-          title
-        }
-      }
-    }
-  }
-`;
 
 function RootComponent() {
-  const [starshipId, setStarshipId] = useState(defaultStarshipId);
-  const { data, error, loading } = useQuery(GET_STARSHIP, {
-    variables: { id: starshipId },
+  // const [starshipId, setStarshipId] = useState(defaultStarshipId);
+  const { data, error, loading } = useQuery(GET_POKEMON_BY_NAME, {
+    variables: { limit: 2, offset: 1 },
   });
 
-  if (error) { console.log('Error fetching starship', error); }
+  console.log(data.pokemons.results.map(item => item.name));
 
   return (
     <View style={styles.container}>
-      <View style={styles.section}>
-        <StarshipPicker
-          starshipId={starshipId}
-          onStarshipChange={setStarshipId}
-        />
-      </View>
-      {loading ? (
-        <ActivityIndicator color='#333' />
-      ) : (
-        <StarshipDetails starship={data.starship} />
-      )}
+        <Text>{data.pokemons.results.map(item => item.name)}</Text>
     </View>
   );
 }
 
-function StarshipPicker(props) {
-  const { data, error, loading } = useQuery(LIST_STARSHIPTS);
-
-  if (error) { console.log('Error listing starships', error) }
-  if (loading) return null;
-
-  const { starships } = data.allStarships;
-
-  return (
-    <Picker
-      selectedValue={props.starshipId}
-      onValueChange={props.onStarshipChange}
-    >
-      {starships.map(starship => (
-        <Picker.Item key={starship.id} label={starship.name} value={starship.id} />
-      ))}
-    </Picker>
-  )
-}
-
-function StarshipDetails({ starship }) {
-  return (
-    <>
-      <View style={styles.section}>
-        <Text style={styles.starshipName}>{starship.name}</Text>
-        <Text style={styles.starshipModel}>{starship.model}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Operational abilities</Text>
-        <Text>- {starship.crew} crew members</Text>
-        <Text>- {starship.consumables} without restocking</Text>
-      </View>
-
-      <View>
-        <Text style={styles.label}>Ship attributes</Text>
-        <Text>- {starship.length}m long</Text>
-        <Text>- {starship.costInCredits} credits</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Manufacturers</Text>
-        {starship.manufacturers.map(manufacturer => (
-          <Text key={manufacturer}>- {manufacturer}</Text>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Appeared in</Text>
-        {starship.filmConnection.films.map(film => (
-          <Text key={film.id}>- {film.title}</Text>
-        ))}
-      </View>
-    </>
-  )
-}
 
 const styles = StyleSheet.create({
   loadingContainer: {
