@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "_internal": {
+      "isDebug": false,
+      "projectRoot": "/Users/mollydeangelis-jimenez/pokeGraph",
+      "dynamicConfigPath": null,
+      "staticConfigPath": null,
+      "packageJsonPath": "/Users/mollydeangelis-jimenez/pokeGraph/package.json"
+    },
+    "name": "pokeGraph",
+    "slug": "pokegraph",
+    "version": "1.0.0",
+    "sdkVersion": "41.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "android": {
+      "package": "com.mollydj.pokegraph"
+    },
+    "ios": {
+      "bundleIdentifier": "com.mollydj.pokegraph"
+    }
+  }
+}

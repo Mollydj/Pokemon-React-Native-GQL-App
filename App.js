@@ -25,6 +25,7 @@ function RootComponent() {
       setPokemonData(data);
     },
   });
+  console.log(data);
 
   if (loading) {
     return;
@@ -33,9 +34,9 @@ function RootComponent() {
     </Container>;
   }
 
-  if (error) {
-    refetch();
-  }
+  // if (error) {
+  //   refetch();
+  // }
 
   return (
     <Container>
