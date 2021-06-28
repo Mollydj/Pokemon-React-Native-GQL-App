@@ -4,53 +4,38 @@ import { ApolloProvider, useQuery, gql } from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { apolloClient } from './apollo';
 import { GET_POKEMON_BY_NAME } from './GraphQl/queries';
-
-
+import styled from 'styled-components/native'
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 function RootComponent() {
-  // const [starshipId, setStarshipId] = useState(defaultStarshipId);
   const { data, error, loading } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { limit: 2, offset: 1 },
   });
 
-  console.log(data.pokemons.results.map(item => item.name));
-
   return (
-    <View style={styles.container}>
-        <Text>{data.pokemons.results.map(item => item.name)}</Text>
-    </View>
+    <Container>
+        {data.pokemons.results.map(item => <Pokemon>{item.name}</Pokemon>)}
+    </Container>
   );
 }
 
+const Container = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`;
 
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 50,
-  },
-  label: {
-    marginBottom: 2,
-    fontSize: 12,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
-  section: {
-    marginVertical: 12,
-  },
-  starshipName: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
-  starshipModel: {
-    fontStyle: 'italic',
-  },
-});
+const Pokemon = styled.Text`
+  background-color: aliceblue;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  font-size: ${hp('2%')}px;
+`;
 
 export default function App() {
   return (
