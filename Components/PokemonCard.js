@@ -20,13 +20,11 @@ export default function PokemonCard(props) {
     }
   });
 
-  console.log(data.pokemon.types);
-
   const renderItem = ({ item }) => (
     <Pokemon>{item.type.name}</Pokemon>
   );
 
-  if (loading) {
+  if (loading || error) {
     return(
     <LoadingIndicatorContainer>
       <ActivityIndicator size='large' color='#ff0000' />
