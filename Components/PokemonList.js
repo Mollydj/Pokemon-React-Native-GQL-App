@@ -63,6 +63,8 @@ export default function PokemonList({ navigation }) {
             value={text}
             placeholder={'Search for Pokemon'}
           ></SearchInput>
+          <Icon name='close-circle-outline' width={20} height={20} fill='#FF5C00' onPress={() => onChangeText('')} />
+          
         </SearchContainer>
       </HeaderSection>
       <PokemonSection>
