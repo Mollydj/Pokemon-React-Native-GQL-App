@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { getTypeEmoji } from './Helpers/EmojiHelper';
 
 export default function PokemonCard(props) {
   const { pokemon } = props;
@@ -21,43 +22,6 @@ export default function PokemonCard(props) {
     },
   });
 
-  const getTypeEmoji = (type) => {
-    if (type === 'electric') {
-      return '⚡';
-    } else if (type === 'grass') {
-      return '🌿';
-    } else if (type === 'fire') {
-      return '🔥';
-    } else if (type === 'poison') {
-      return '☢️';
-    } else if (type === 'flying') {
-      return '🕊️';
-    } else if (type === 'bug') {
-      return '🐞';
-    } else if (type === 'water') {
-      return '💦';
-    } else if (type === 'normal') {
-      return '✔️';
-    } else if (type === 'ground') {
-      return '🕳️';
-    } else if (type === 'fighting') {
-      return '🥊';
-    } else if (type === 'psychic') {
-      return '🔮';
-    } else if (type === 'rock') {
-      return '🪨';
-    } else if (type === 'steel') {
-      return '⛓️';
-    } else if (type === 'ice') {
-      return '🧊';
-    } else if (type === 'ghost') {
-      return '👻';
-    } else if (type === 'dragon') {
-      return '🐉';
-    } else if (type === 'fairy') {
-      return '🧚‍♀️';
-    }
-  };
 
   const getBackgroundColor = (type) => {
     if (type === 'electric') {
