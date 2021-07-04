@@ -21,9 +21,10 @@ import {
 } from 'react-native-responsive-screen';
 
 export default function PokemonList({ navigation }) {
+  const [text, onChangeText] = useState("Useless Text");
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
-    variables: { limit: 10, offset: 0 },
+    variables: { limit: 50, offset: 0 },
     onCompleted: (data) => {
       setPokemonData(data);
     },
@@ -50,19 +51,35 @@ export default function PokemonList({ navigation }) {
 
   return (
     <>
-      <HeaderSection><Title>Hello</Title></HeaderSection>
+      <HeaderSection>
+        {/* <Title>Hello</Title> */}
+        <SearchInput
+        onChangeText={onChangeText}
+        value={text}
+      />
+      </HeaderSection>
       <PokemonSection>
         <Title>Original 50 Pokemon</Title>
         <FlatList
+          scrollEnabled={true}
           data={data.pokemons.results}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           numColumns={2}
+          overflow={'hidden'}
         />
       </PokemonSection>
     </>
   );
 }
+
+const SearchInput = styled.TextInput`
+  background-color: #FFFCF0;
+  width: 85%;
+  height: ${wp('12%')}px;
+  border-radius: 10;
+  padding: ${wp('4%')}px;
+`;
 
 const LoadingIndicatorContainer = styled.View`
   justify-content: center;
@@ -85,6 +102,7 @@ const HeaderSection = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items:center;
+  padding: ${wp('4%')}px;
 `;
 
 const Title = styled.Text`
@@ -97,12 +115,14 @@ const Title = styled.Text`
 const PokemonSection = styled.View`
   background-color: #fae392;
   padding: ${wp('2')}px;
-  border-radius: 30;
+  border-radius: ${hp('4%')}px;
+  /* overflow: scroll; */
   /* margin-bottom: ${wp('1%')}px; */
-  top: ${hp('25%')}px;
-  position: absolute;
-  flex:1;
-  width: 100%;
+  top: ${hp('-4%')}px;
+  margin-bottom: ${hp('-4%')}px;
+  /* position: absolute; */
+  flex: 5;
+  /* width: 100%; */
   /* justify-content: center; */
   /* align-self: center; */
   /* align-items: center; */
