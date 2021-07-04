@@ -21,14 +21,16 @@ import {
 } from 'react-native-responsive-screen';
 
 export default function PokemonList({ navigation }) {
-  const [text, onChangeText] = useState("Useless Text");
+  const [text, onChangeText] = useState('');
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
     variables: { limit: 50, offset: 0 },
-    onCompleted: (data) => {
-      setPokemonData(data);
-    },
+    // onCompleted: ({data}) => {
+    //   setPokemonData();
+    // },
   });
+
+  
 
   if (loading || error) {
     return (
@@ -43,6 +45,8 @@ export default function PokemonList({ navigation }) {
     refetch();
   }
 
+  console.log('data', data);
+
   const renderItem = ({ item }) => (
     <Container>
       <PokemonCard pokemon={item} />
@@ -52,17 +56,17 @@ export default function PokemonList({ navigation }) {
   return (
     <>
       <HeaderSection>
-        {/* <Title>Hello</Title> */}
         <SearchInput
         onChangeText={onChangeText}
         value={text}
+        placeholder={'Search for Pokemon'}
       />
       </HeaderSection>
       <PokemonSection>
         <Title>Original 50 Pokemon</Title>
         <FlatList
           scrollEnabled={true}
-          data={data.pokemons.results}
+          data={data.pokemons.results.filter(item => item.name.includes(text.toLowerCase()))}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           numColumns={2}
