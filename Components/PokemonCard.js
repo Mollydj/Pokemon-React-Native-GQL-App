@@ -37,11 +37,11 @@ export default function PokemonCard(props) {
 
   return (
     <>
-    <TouchablePokemon>
-      <Pokemon>{pokemon.name}</Pokemon>
-      <PokeImage source={{ uri: pokemon.artwork }} />
-      <Text>{data.pokemon.types.map((item) => item.name)}</Text>
-      <FlatList
+      <TouchablePokemon>
+        <Pokemon>{pokemon.name}</Pokemon>
+        <PokeImage source={{ uri: pokemon.artwork }} />
+        <Text>{data.pokemon.types.map((item) => item.name)}</Text>
+        <FlatList
         data={data.pokemon.types}
         renderItem={renderItem}
         keyExtractor={(item, index) => index}
@@ -52,13 +52,10 @@ export default function PokemonCard(props) {
 }
 
 const TouchablePokemon = styled.TouchableOpacity`
-width: ${wp('45%')}px;
-height: ${wp('45%')}px;
-justify-content: center;
-align-content: center;
-align-self: center;
+  width: ${wp('35%')}px;
+  height: ${wp('45%')}px;
+  justify-content: center;
 `;
-
 
 const Pokemon = styled.Text`
   justify-content: center;
@@ -69,6 +66,7 @@ const Pokemon = styled.Text`
 const PokeImage = styled.Image`
   resize-mode: contain;
   flex: 1;
+  margin: ${wp('1%')}px;
 `;
 
 const LoadingIndicatorContainer = styled.View`
