@@ -49,7 +49,7 @@ export default function PokemonList({ navigation }) {
 
   const renderItem = ({ item }) => (
     <Container>
-      <PokemonCard pokemon={item} />
+      <PokemonCard pokemon={item} key={item.id} />
     </Container>
   );
 
