@@ -20,7 +20,35 @@ export default function PokemonCard(props) {
     },
   });
 
-  const renderItem = ({ item }) => <Pokemon>{item.type.name}</Pokemon>;
+  const getTypeEmoji = (type) => {
+    console.log('getTypeEmoji', type);
+    if (type === 'electric') {
+      return '⚡';
+    } else if (type === 'grass') {
+      return '🌱';
+    } else if (type === 'fire') {
+      return '🔥'
+    } else if (type === 'poison') {
+      return '☢️'
+    } else if (type === 'flying') {
+      return '🕊️'
+    } else if (type === 'bug') {
+      return '🐞'
+    } else if (type === 'water') {
+      return '💦'
+    } else if (type === 'normal') {
+      return '✔️'
+    } else if (type === "ground") {
+      return '🕳️'
+    } else if (type === 'fairy') {
+      return '🧚‍♀️'
+    }
+  };
+
+  const renderItem = ({ item }) => (
+    console.log('renderItem', item.type.name),
+    (<Pokemon>{item.type.name + ' ' + getTypeEmoji(item.type.name)} </Pokemon>)
+  );
 
   if (loading || error) {
     return (
@@ -42,10 +70,10 @@ export default function PokemonCard(props) {
         <PokeImage source={{ uri: pokemon.artwork }} />
         <Text>{data.pokemon.types.map((item) => item.name)}</Text>
         <FlatList
-        data={data.pokemon.types}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index}
-      />
+          data={data.pokemon.types}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index}
+        />
       </TouchablePokemon>
     </>
   );
@@ -65,6 +93,8 @@ const Pokemon = styled.Text`
 
 const PokeImage = styled.Image`
   resize-mode: contain;
+  width: 100%;
+  height: 100%;
   flex: 1;
   margin: ${wp('1%')}px;
 `;
