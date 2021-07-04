@@ -22,7 +22,6 @@ export default function PokemonCard(props) {
     },
   });
 
-
   const getBackgroundColor = (type) => {
     if (type === 'electric') {
       setBackgroundColor('#DBAB00');
@@ -31,7 +30,7 @@ export default function PokemonCard(props) {
     } else if (type === 'fire') {
       setBackgroundColor('#ff5c00');
     } else if (type === 'poison') {
-      setBackgroundColor('#EE8F00');
+      setBackgroundColor('#FFD12F');
     } else if (type === 'flying') {
       setBackgroundColor('#A476BA');
     } else if (type === 'bug') {
