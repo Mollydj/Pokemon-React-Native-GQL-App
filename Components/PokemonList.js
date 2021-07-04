@@ -19,6 +19,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import { Icon } from 'react-native-eva-icons';
 
 export default function PokemonList({ navigation }) {
   const [text, onChangeText] = useState('');
@@ -30,12 +31,10 @@ export default function PokemonList({ navigation }) {
     // },
   });
 
-  
-
   if (loading || error) {
     return (
       <LoadingIndicatorContainer>
-        <ActivityIndicator size='large' color='#ff0000' />
+        <ActivityIndicator size='large' color='#FF5C00' />
       </LoadingIndicatorContainer>
     );
   }
@@ -56,17 +55,24 @@ export default function PokemonList({ navigation }) {
   return (
     <>
       <HeaderSection>
-        <SearchInput
-        onChangeText={onChangeText}
-        value={text}
-        placeholder={'Search for Pokemon'}
-      />
+        
+        <SearchContainer>
+        <Icon name='search-outline' width={50} height={50} fill='#FF5C00' />
+          <SearchInput
+            onChangeText={onChangeText}
+            value={text}
+            placeholder={'Search for Pokemon'}
+          ></SearchInput>
+        </SearchContainer>
       </HeaderSection>
       <PokemonSection>
         <Title>Original 50 Pokemon</Title>
+
         <FlatList
           scrollEnabled={true}
-          data={data.pokemons.results.filter(item => item.name.includes(text.toLowerCase()))}
+          data={data.pokemons.results.filter((item) =>
+            item.name.includes(text.toLowerCase())
+          )}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           numColumns={2}
@@ -77,12 +83,19 @@ export default function PokemonList({ navigation }) {
   );
 }
 
-const SearchInput = styled.TextInput`
+const SearchContainer = styled.View`
   background-color: #FFFCF0;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   width: 85%;
-  height: ${wp('12%')}px;
+  height: ${wp('15%')}px;
   border-radius: 10;
   padding: ${wp('4%')}px;
+`;
+
+const SearchInput = styled.TextInput`
+  flex:1;
 `;
 
 const LoadingIndicatorContainer = styled.View`
@@ -105,7 +118,7 @@ const HeaderSection = styled.View`
   background-color: #ffd12f;
   flex: 1;
   justify-content: flex-start;
-  align-items:center;
+  align-items: center;
   padding: ${wp('4%')}px;
 `;
 
