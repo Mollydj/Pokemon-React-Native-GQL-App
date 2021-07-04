@@ -19,7 +19,7 @@ import PokemonList from './Components/PokemonList';
 function RootComponent() {
   return (
     <>
-      <SafeAreaView style={{backgroundColor: '#ffd12f'}} />
+      <SafeAreaView style={{ backgroundColor: '#ffd12f' }} />
       <PokemonList />
     </>
   );

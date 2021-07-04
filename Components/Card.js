@@ -6,34 +6,46 @@ import {
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
-import { Text, View, FlatList, ActivityIndicator } from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Card(props) {
   return (
     <>
-    <Container>
-      <CardContainer>
-        <Title>Original 50 Pokemon</Title>
-      </CardContainer>
+      <Container>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <CardContainer>
+            <Title>Original 50 Pokemon</Title>
+          </CardContainer>
 
-      <CardContainer>
-        <Title>Original 50 Pokemon</Title>
-      </CardContainer>
+          <CardContainer>
+            <Title>Original 50 Pokemon</Title>
+          </CardContainer>
 
-      <CardContainer>
-        <Title>Original 50 Pokemon</Title>
-      </CardContainer>
+          <CardContainer>
+            <Title>Original 50 Pokemon</Title>
+          </CardContainer>
+
+          <CardContainer>
+            <Title>Original 50 Pokemon</Title>
+          </CardContainer>
+        </ScrollView>
       </Container>
     </>
   );
 }
 
-
-const Container = styled.TouchableOpacity`
-    flex-direction: row;
-  justify-content: space-evenly;
-  flex:1;
+const Container = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 `;
 
 const CardContainer = styled.TouchableOpacity`
@@ -43,6 +55,7 @@ const CardContainer = styled.TouchableOpacity`
   align-items: center;
   background-color: #ff5c00;
   border-radius: ${wp('5%')}px;
+  margin-right: ${wp('2')}px;
 `;
 
 const Title = styled.Text`

@@ -47,27 +47,29 @@ export default function PokemonList({ navigation }) {
 
   console.log('data', data);
 
-  const renderItem = ({ item }) => (
-      <PokemonCard pokemon={item} key={item.id} />
-  );
+  const renderItem = ({ item }) => <PokemonCard pokemon={item} key={item.id} />;
 
   return (
     <>
       <HeaderSection>
-        
         <SearchContainer>
-        <Icon name='search-outline' width={50} height={50} fill='#FF5C00' />
+          <Icon name='search-outline' width={50} height={50} fill='#FF5C00' />
           <SearchInput
             onChangeText={onChangeText}
             value={text}
             placeholder={'Search for Pokemon'}
           ></SearchInput>
-          <Icon name='close-circle-outline' width={20} height={20} fill='#D0D0D0' onPress={() => onChangeText('')} />
-          
-          
-         
+          <Icon
+            name='close-circle-outline'
+            width={20}
+            height={20}
+            fill='#D0D0D0'
+            onPress={() => onChangeText('')}
+          />
         </SearchContainer>
-        <CardContainer><Card /></CardContainer>
+        <CardContainer>
+          <Card />
+        </CardContainer>
       </HeaderSection>
       <PokemonSection>
         <Title>Original 150 Pokemon</Title>
@@ -88,7 +90,7 @@ export default function PokemonList({ navigation }) {
 }
 
 const SearchContainer = styled.View`
-  background-color: #FFFCF0;
+  background-color: #fffcf0;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -100,13 +102,12 @@ const SearchContainer = styled.View`
 
 const CardContainer = styled.View`
   flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
   padding: ${wp('4%')}px;
+  width: ${wp('100')}px;
 `;
 
 const SearchInput = styled.TextInput`
-  flex:1;
+  flex: 1;
 `;
 
 const LoadingIndicatorContainer = styled.View`
