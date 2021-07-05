@@ -14,10 +14,6 @@ export default function PokemonCard(props) {
   const pokemonName = pokemon.name;
   const [pokemonDetails, setPokemonDetails] = useState();
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
-  const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
-    variables: { name: pokemonName },
-  });
-  
 
   const getBackgroundColor = (type) => {
     if (type === 'electric') {
@@ -59,16 +55,13 @@ export default function PokemonCard(props) {
     }
   };
 
-  const renderItem = ({ item, index }) => (
-    getBackgroundColor(data.pokemon.types[0].type.name),
-    (
-      <TypeContainer activeOpacity={0.7} listKey={index + 1}>
-        <Pokemon BackgroundColor={pokemonBackgroundColor}>
-          {item.type.name + ' ' + getTypeEmoji(item.type.name)}
-        </Pokemon>
-      </TypeContainer>
-    )
-  );
+  const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
+    variables: { name: pokemonName },
+    onCompleted: () => {
+      getBackgroundColor(data.pokemon.types[0].type.name);
+      console.log(pokemonBackgroundColor);
+    },
+  });
 
   if (loading || error) {
     return (
@@ -83,27 +76,28 @@ export default function PokemonCard(props) {
     refetch();
   }
 
-  LogBox.ignoreLogs(['Warning: ...']);
-
   return (
-    console.log(pokemon),
     <>
       <Container color={pokemonBackgroundColor} listKey={pokemon.id}>
-        <TouchablePokemon 
-        onPress={() => navigation.navigate('PokemonDetails', {
-          pokemon: pokemon,
-          pokemonBackgroundColor
-        })}
+        <TouchablePokemon
+          onPress={() =>
+            navigation.navigate('PokemonDetails', {
+              pokemon: pokemon,
+              pokemonBackgroundColor,
+            })
+          }
         >
-          <Pokemon>{pokemon.name}</Pokemon>
+          <PokemonName>{pokemon.name}</PokemonName>
           <PokeImage source={{ uri: pokemon.artwork }} />
-          <FlatList
-            data={data.pokemon.types}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index + 1}
-            numColumns={2}
-          />
-
+          <TypeContainer>
+            {data.pokemon.types.map((item) => (
+              <Type activeOpacity={0.7}>
+                <Pokemon>
+                  {item.type.name + ' ' + getTypeEmoji(item.type.name)}
+                </Pokemon>
+              </Type>
+            ))}
+          </TypeContainer>
         </TouchablePokemon>
       </Container>
     </>
@@ -111,28 +105,39 @@ export default function PokemonCard(props) {
 }
 
 const TouchablePokemon = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
   width: ${wp('35%')}px;
   height: ${wp('35%')}px;
-  /* justify-content: center; */
-  /* align-items: center; */
   flex: 1;
 `;
 
 const TypeContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Type = styled.View`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  /* flex-wrap: nowrap; */
-  /* width: 100%; */
-  flex:1;
-  /* background-color: white; */
-  background-Color: rgba(255, 255, 255, 0.5);
+  flex-wrap: wrap;
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.5);
   margin: ${wp('1%')}px;
   border-radius: ${wp('1%')}px;
 `;
 
 const Pokemon = styled.Text`
   font-size: ${hp('1.5%')}px;
+  text-transform: capitalize;
+`;
+
+const PokemonName = styled.Text`
+  font-size: ${hp('2.5%')}px;
+  text-transform: capitalize;
 `;
 
 const PokeImage = styled.Image`

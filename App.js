@@ -24,8 +24,7 @@ const Stack = createStackNavigator();
 
 function RootComponent() {
   return (
-    <>
-      <SafeAreaView style={{ backgroundColor: '#FFD12F'}} />
+    <>      
       <MainNavigator />
     </>
   );

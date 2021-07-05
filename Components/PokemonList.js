@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   FlatList,
   LogBox,
+  SafeAreaView,
 } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_LIST } from '../GraphQl/queries';
@@ -42,6 +43,7 @@ export default function PokemonList(props) {
 
   return (
     <>
+    <SafeAreaView style={{ backgroundColor: '#FFD12F'}} />
       <HeaderSection>
         <SearchContainer>
           <Icon name='search-outline' width={50} height={50} fill='#FF5C00' />
@@ -73,7 +75,7 @@ export default function PokemonList(props) {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           numColumns={2}
-          overflow={'hidden'}
+          overflow='hidden'
         />
       </PokemonSection>
     </>
