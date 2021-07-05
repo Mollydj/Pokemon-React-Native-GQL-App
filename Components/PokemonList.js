@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Button,
-  Text,
-  View,
-  SafeAreaView,
   ActivityIndicator,
-  StyleSheet,
-  ScrollView,
   FlatList,
-  TouchableOpacity,
-  TextInput,
 } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_LIST } from '../GraphQl/queries';
@@ -22,14 +14,11 @@ import {
 import { Icon } from 'react-native-eva-icons';
 import Card from './Card';
 
-export default function PokemonList({ navigation }) {
+export default function PokemonList(props) {
   const [text, onChangeText] = useState('');
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
     variables: { limit: 151, offset: 0 },
-    // onCompleted: ({data}) => {
-    //   setPokemonData();
-    // },
   });
 
   if (loading || error) {
@@ -44,8 +33,6 @@ export default function PokemonList({ navigation }) {
     console.log('Refetching...');
     refetch();
   }
-
-  console.log('data', data);
 
   const renderItem = ({ item }) => <PokemonCard pokemon={item} key={item.id} />;
 

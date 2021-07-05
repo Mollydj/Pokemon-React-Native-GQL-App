@@ -6,8 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
-import { Text, View, FlatList, ActivityIndicator } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { FlatList, ActivityIndicator } from 'react-native';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 
 export default function PokemonCard(props) {
@@ -17,10 +16,8 @@ export default function PokemonCard(props) {
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { name: pokemonName },
-    onCompleted: (data) => {
-      setPokemonDetails(data.pokemon.type);
-    },
   });
+  
 
   const getBackgroundColor = (type) => {
     if (type === 'electric') {
@@ -62,11 +59,11 @@ export default function PokemonCard(props) {
     }
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item, index }) => (
     getBackgroundColor(data.pokemon.types[0].type.name),
     (
       <TypeContainer activeOpacity={0.7}>
-        <Pokemon BackgroundColor={pokemonBackgroundColor} listKey={pokemon.id}>
+        <Pokemon BackgroundColor={pokemonBackgroundColor}>
           {item.type.name + ' ' + getTypeEmoji(item.type.name)}
         </Pokemon>
       </TypeContainer>
@@ -95,7 +92,7 @@ export default function PokemonCard(props) {
           <FlatList
             data={data.pokemon.types}
             renderItem={renderItem}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index + 1}
             numColumns={2}
           />
 
