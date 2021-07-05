@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
-import { FlatList, ActivityIndicator } from 'react-native';
+import { FlatList, ActivityIndicator, LogBox } from 'react-native';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 
 export default function PokemonCard(props) {
@@ -83,10 +83,18 @@ export default function PokemonCard(props) {
     refetch();
   }
 
+  LogBox.ignoreLogs(['Warning: ...']);
+
   return (
+    console.log(pokemon),
     <>
       <Container color={pokemonBackgroundColor} listKey={pokemon.id}>
-        <TouchablePokemon onPress={() => navigation.navigate('PokemonDetails')}>
+        <TouchablePokemon 
+        onPress={() => navigation.navigate('PokemonDetails', {
+          pokemon: pokemon,
+          pokemonBackgroundColor
+        })}
+        >
           <Pokemon>{pokemon.name}</Pokemon>
           <PokeImage source={{ uri: pokemon.artwork }} />
           <FlatList

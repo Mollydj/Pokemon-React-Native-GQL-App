@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  LogBox,
 } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_LIST } from '../GraphQl/queries';
@@ -16,12 +17,13 @@ import Card from './Card';
 
 export default function PokemonList(props) {
   const { navigation } = props;
-  console.log(navigation);
   const [text, onChangeText] = useState('');
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
     variables: { limit: 151, offset: 0 },
   });
+
+  LogBox.ignoreLogs(['Warning: ...']);
 
   if (loading || error) {
     return (

@@ -11,8 +11,8 @@ export default function MainNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator  initialRouteName='PokemonList'>
-        <Stack.Screen name="PokemonList" component={PokemonList} />
-        <Stack.Screen name="PokemonDetails" component={PokemonDetails} />
+        <Stack.Screen name="PokemonList" component={PokemonList}  options={{ headerShown: false }} />
+        <Stack.Screen name="PokemonDetails" component={PokemonDetails}  options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
