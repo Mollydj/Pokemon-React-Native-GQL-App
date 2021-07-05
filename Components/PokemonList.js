@@ -15,6 +15,8 @@ import { Icon } from 'react-native-eva-icons';
 import Card from './Card';
 
 export default function PokemonList(props) {
+  const { navigation } = props;
+  console.log(navigation);
   const [text, onChangeText] = useState('');
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
@@ -34,7 +36,7 @@ export default function PokemonList(props) {
     refetch();
   }
 
-  const renderItem = ({ item }) => <PokemonCard pokemon={item} key={item.id} />;
+  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} key={item.id} />;
 
   return (
     <>

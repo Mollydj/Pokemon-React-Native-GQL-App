@@ -10,19 +10,18 @@ import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 
-export default function PokemonCard(props) {
+export default function PokemonDetails(props) {
   const { pokemon } = props;
 
   return (
     <>
-      <Container color={pokemonBackgroundColor} key={pokemon.id}>
-<Text>Details</Text>
+      <Container>
+        <Text>Details</Text>
       </Container>
     </>
   );
 }
 
 const Container = styled.View`
-  background-color: ${(props) => props.color};
   flex: 1;
 `;

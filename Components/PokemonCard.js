@@ -10,7 +10,7 @@ import { FlatList, ActivityIndicator } from 'react-native';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 
 export default function PokemonCard(props) {
-  const { pokemon } = props;
+  const { pokemon, navigation } = props;
   const pokemonName = pokemon.name;
   const [pokemonDetails, setPokemonDetails] = useState();
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
@@ -62,7 +62,7 @@ export default function PokemonCard(props) {
   const renderItem = ({ item, index }) => (
     getBackgroundColor(data.pokemon.types[0].type.name),
     (
-      <TypeContainer activeOpacity={0.7}>
+      <TypeContainer activeOpacity={0.7} listKey={index + 1}>
         <Pokemon BackgroundColor={pokemonBackgroundColor}>
           {item.type.name + ' ' + getTypeEmoji(item.type.name)}
         </Pokemon>
@@ -86,7 +86,7 @@ export default function PokemonCard(props) {
   return (
     <>
       <Container color={pokemonBackgroundColor} listKey={pokemon.id}>
-        <TouchablePokemon>
+        <TouchablePokemon onPress={() => navigation.navigate('PokemonDetails')}>
           <Pokemon>{pokemon.name}</Pokemon>
           <PokeImage source={{ uri: pokemon.artwork }} />
           <FlatList
