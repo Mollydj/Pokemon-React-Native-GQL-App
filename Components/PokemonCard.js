@@ -65,9 +65,11 @@ export default function PokemonCard(props) {
   const renderItem = ({ item }) => (
     getBackgroundColor(data.pokemon.types[0].type.name),
     (
-      <Pokemon BackgroundColor={pokemonBackgroundColor}>
-        {item.type.name + ' ' + getTypeEmoji(item.type.name)}
-      </Pokemon>
+      <TypeContainer activeOpacity={0.7}>
+        <Pokemon BackgroundColor={pokemonBackgroundColor} listKey={pokemon.id}>
+          {item.type.name + ' ' + getTypeEmoji(item.type.name)}
+        </Pokemon>
+      </TypeContainer>
     )
   );
 
@@ -86,7 +88,7 @@ export default function PokemonCard(props) {
 
   return (
     <>
-      <Container color={pokemonBackgroundColor} key={pokemon.id}>
+      <Container color={pokemonBackgroundColor} listKey={pokemon.id}>
         <TouchablePokemon>
           <Pokemon>{pokemon.name}</Pokemon>
           <PokeImage source={{ uri: pokemon.artwork }} />
@@ -94,7 +96,9 @@ export default function PokemonCard(props) {
             data={data.pokemon.types}
             renderItem={renderItem}
             keyExtractor={(item, index) => index}
+            numColumns={2}
           />
+
         </TouchablePokemon>
       </Container>
     </>
@@ -103,15 +107,27 @@ export default function PokemonCard(props) {
 
 const TouchablePokemon = styled.TouchableOpacity`
   width: ${wp('35%')}px;
-  height: ${wp('45%')}px;
-  justify-content: center;
+  height: ${wp('35%')}px;
+  /* justify-content: center; */
+  /* align-items: center; */
   flex: 1;
 `;
 
-const Pokemon = styled.Text`
+const TypeContainer = styled.View`
   justify-content: center;
   align-items: center;
-  font-size: ${hp('2%')}px;
+  flex-direction: row;
+  /* flex-wrap: nowrap; */
+  /* width: 100%; */
+  flex:1;
+  /* background-color: white; */
+  background-Color: rgba(255, 255, 255, 0.5);
+  margin: ${wp('1%')}px;
+  border-radius: ${wp('1%')}px;
+`;
+
+const Pokemon = styled.Text`
+  font-size: ${hp('1.5%')}px;
 `;
 
 const PokeImage = styled.Image`
@@ -134,6 +150,7 @@ const Container = styled.View`
   flex: 1;
   margin: ${wp('1%')}px;
   border-radius: 10;
-  padding: ${wp('4%')}px;
+  padding: ${wp('1%')}px;
   justify-content: center;
+  align-items: center;
 `;
