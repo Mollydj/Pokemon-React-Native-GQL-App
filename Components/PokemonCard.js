@@ -59,7 +59,6 @@ export default function PokemonCard(props) {
     variables: { name: pokemonName },
     onCompleted: () => {
       getBackgroundColor(data.pokemon.types[0].type.name);
-      console.log(pokemonBackgroundColor);
     },
   });
 
@@ -84,6 +83,7 @@ export default function PokemonCard(props) {
             navigation.navigate('PokemonDetails', {
               pokemon: pokemon,
               pokemonBackgroundColor,
+              navigation
             })
           }
         >
