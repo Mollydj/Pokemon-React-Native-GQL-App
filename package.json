@@ -44,6 +44,6 @@
     "eject": "expo eject"
   },
   "private": true,
-  "name": "pokeGraph",
+  "name": "PokeGraph",
   "version": "1.0.0"
 }
