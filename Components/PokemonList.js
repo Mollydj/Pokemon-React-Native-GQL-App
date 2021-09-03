@@ -65,7 +65,7 @@ export default function PokemonList(props) {
         </CardContainer>
       </HeaderSection>
       <PokemonSection>
-        <Title>Original 150 Pokemon</Title>
+        <Title>Original 150 Pokemon >>></Title>
 
         <FlatList
           scrollEnabled={true}
