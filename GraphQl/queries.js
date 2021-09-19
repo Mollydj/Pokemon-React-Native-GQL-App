@@ -26,7 +26,27 @@ export const GET_POKEMON_BY_NAME = gql`
     pokemon(name: $name) {
         id
         name
-        sprites {
+     		height
+      	weight
+      	order
+      	is_default
+      	base_experience
+      
+        types {
+          slot
+          type{
+						name
+          }
+        }
+        stats {
+          base_stat
+          effort
+          stat {
+						name
+          }
+        }
+        sprites 
+      {
         front_default
         }
         moves {
@@ -42,3 +62,4 @@ export const GET_POKEMON_BY_NAME = gql`
     }
     }
 `;
+

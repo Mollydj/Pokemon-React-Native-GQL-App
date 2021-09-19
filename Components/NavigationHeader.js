@@ -40,11 +40,13 @@ const LeftWrapper = styled.View`
   width: ${wp('26%')}px;
   align-items: flex-start;
   justify-content: center;
+  margin-left:${wp('2%')}px;
 `;
 
 const RightWrapper = styled.View`
   width: ${wp('26%')}px;
   align-items: flex-end;
+  margin-right:${wp('2%')}px;
   justify-content: center;
 `;
 

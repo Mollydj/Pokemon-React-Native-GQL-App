@@ -21,6 +21,7 @@ export default function PokemonDetails(props) {
   const { route, navigation } = props;
   const { pokemon, pokemonBackgroundColor } = route.params;
 
+
   return (
     <>
       <SafeAreaView />
@@ -28,8 +29,8 @@ export default function PokemonDetails(props) {
       <NavigationHeader
         color={pokemonBackgroundColor}
         headerTitle={pokemon.name}
-        leftButton={<Icon name='arrow-left-outline' onPress={() => navigation.goBack()} width={50} height={50} fill={pokemonBackgroundColor} />}
-        rightButton={<Icon name='heart-outline' width={40} height={40} fill={pokemonBackgroundColor} />}
+        leftButton={<Icon name='arrow-ios-back-outline' onPress={() => navigation.goBack()} width={50} height={50} fill={pokemonBackgroundColor} />}
+        rightButton={<Icon name='star-outline' width={40} height={40} fill={pokemonBackgroundColor} />}
       />
       <HeaderSection>
         <PokeImage source={{ uri: pokemon.artwork }} />
@@ -60,7 +61,7 @@ const HeaderSection = styled.View`
 const PokemonSection = styled.View`
   background-color: ${(props) => props.color};
   padding: ${wp('2')}px;
-  border-radius: ${hp('4%')}px;
+  border-radius: ${wp('5%')}px;
   top: ${hp('-4%')}px;
   margin-bottom: ${hp('-4%')}px;
   flex: 3;

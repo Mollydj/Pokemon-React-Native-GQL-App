@@ -22,11 +22,12 @@ export default function PokemonList(props) {
   const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
     variables: { limit: 151, offset: 0 },
+    // variables: { limit: 6, offset: 0 },
   });
 
   LogBox.ignoreLogs(['Warning: ...']);
 
-  if (loading || error) {
+  if (loading) {
     return (
       <LoadingIndicatorContainer>
         <ActivityIndicator size='large' color='#FF5C00' />
@@ -36,10 +37,10 @@ export default function PokemonList(props) {
 
   if (error) {
     console.log('Refetching...');
-    refetch();
+    // refetch();
   }
 
-  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} key={item.id} />;
+  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} key={item.id} pokemonName={item.name}/>;
 
   return (
     <>
@@ -89,7 +90,7 @@ const SearchContainer = styled.View`
   align-items: center;
   width: 85%;
   height: ${wp('15%')}px;
-  border-radius: 10;
+  border-radius: ${wp('5%')}px;
   padding: ${wp('4%')}px;
 `;
 
