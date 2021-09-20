@@ -12,18 +12,13 @@ import { getBackgroundColor } from './Helpers/BackgroundColorHelper';
 
 export default function PokemonCard(props) {
   const { pokemon, navigation, pokemonName } = props;
-  console.log('pokemonName', pokemonName);
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
-
-  const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
+  const { data, error, loading } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { name: pokemonName },
     onCompleted: () => {
       getBackgroundColor(data.pokemon.types[0].type.name, setBackgroundColor);
     },
   });
-
-  console.log('GET_POKEMON_BY_NAME', data);
-  // console.log(getBackgroundColor(data.pokemon.types[0].type.name));
 
   if (loading) {
     return (
@@ -44,7 +39,8 @@ export default function PokemonCard(props) {
         <TouchablePokemon
           onPress={() =>
             navigation.navigate('PokemonDetails', {
-              pokemon: pokemon,
+              pokemon: data.pokemon,
+              artwork: pokemon.artwork,
               pokemonBackgroundColor,
               navigation
             })

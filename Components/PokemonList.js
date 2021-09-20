@@ -19,7 +19,6 @@ import Card from './Card';
 export default function PokemonList(props) {
   const { navigation } = props;
   const [text, onChangeText] = useState('');
-  const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
     variables: { limit: 151, offset: 0 },
     // variables: { limit: 6, offset: 0 },
