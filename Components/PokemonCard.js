@@ -6,9 +6,9 @@ import {
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
-import { FlatList, ActivityIndicator, LogBox } from 'react-native';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 import { getBackgroundColor } from './Helpers/BackgroundColorHelper';
+import LoadingIndicator from './Helpers/LoadingIndicator';
 
 export default function PokemonCard(props) {
   const { pokemon, navigation, pokemonName } = props;
@@ -21,11 +21,7 @@ export default function PokemonCard(props) {
   });
 
   if (loading) {
-    return (
-      <LoadingIndicatorContainer>
-        <ActivityIndicator size='large' color='#ff0000' />
-      </LoadingIndicatorContainer>
-    );
+    return <LoadingIndicator />;
   }
 
   if (error) {
@@ -42,7 +38,7 @@ export default function PokemonCard(props) {
               pokemon: data.pokemon,
               artwork: pokemon.artwork,
               pokemonBackgroundColor,
-              navigation
+              navigation,
             })
           }
         >
@@ -105,12 +101,6 @@ const PokeImage = styled.Image`
   height: 100%;
   flex: 1;
   margin: ${wp('1%')}px;
-`;
-
-const LoadingIndicatorContainer = styled.View`
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1;
 `;
 
 const Container = styled.View`

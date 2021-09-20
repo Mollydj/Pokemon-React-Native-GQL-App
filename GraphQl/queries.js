@@ -31,7 +31,13 @@ export const GET_POKEMON_BY_NAME = gql`
       	order
       	is_default
       	base_experience
-      
+        abilities {
+        ability {
+          name
+        }
+        is_hidden
+        slot
+      }
         types {
           slot
           type{
@@ -59,6 +65,26 @@ export const GET_POKEMON_BY_NAME = gql`
             name
         }
         }
+    }
+    }
+`;
+
+
+export const GET_MOVE_DETAILS = gql`
+query pokemon($move: String!) {
+  move(move: $move) {
+    message
+    status
+    response
+    params
+  }
+  }
+`;
+
+export const GET_EVOLUTION_DETAILS = gql`
+    query evolutionChain($id: String!) {
+    evolutionChain(id: $id) {
+      response
     }
     }
 `;

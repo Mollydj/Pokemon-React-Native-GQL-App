@@ -12,78 +12,148 @@ import {
   FlatList,
   ActivityIndicator,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import { Icon } from 'react-native-eva-icons';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 import NavigationHeader from './NavigationHeader';
+import PokemonStats from './PokemonStats';
+import PokemonMoves from './PokemonMoves';
+import PokemonEvolution from './PokemonEvolution';
+import PokemonApilities from './PokemonAbilities';
+import PokemonAbilities from './PokemonAbilities';
 
 export default function PokemonDetails(props) {
   const { route, navigation } = props;
   const { pokemon, pokemonBackgroundColor, artwork } = route.params;
-  console.log(pokemon);
+  const [baseStatsIsActive, setBaseStatsToActive] = useState(true);
+  const [movesIsActive, setMovesToActive] = useState(false);
+  // const [evolutionIsActive, setEvolutionToActive] = useState(false);
+  const [abilitiesIsActive, setAbilitiesToActive] = useState(false);
+
+  const handleToggle = (trueValue, falseValue1, falseValue2) => {
+    trueValue(true), falseValue1(false), falseValue2(false);
+  };
+
+  // console.log(pokemon.abilities);
 
   return (
     <>
       <SafeAreaView />
-      
+
       <NavigationHeader
         color={pokemonBackgroundColor}
         headerTitle={pokemon.name}
-        leftButton={<Icon name='arrow-ios-back-outline' onPress={() => navigation.goBack()} width={50} height={50} fill={pokemonBackgroundColor} />}
-        rightButton={<Icon name='star-outline' width={40} height={40} fill={pokemonBackgroundColor} />}
+        leftButton={
+          <Icon
+            name='arrow-ios-back-outline'
+            onPress={() => navigation.goBack()}
+            width={50}
+            height={50}
+            fill={pokemonBackgroundColor}
+          />
+        }
+        rightButton={
+          <Icon
+            name='star-outline'
+            width={40}
+            height={40}
+            fill={pokemonBackgroundColor}
+          />
+        }
       />
       <PokeImageContainer>
         <PokeImage source={{ uri: artwork }} />
       </PokeImageContainer>
 
       <PokemonSection color={pokemonBackgroundColor}>
+        <AboutSection>
+          <Text>Height: {pokemon.height}</Text>
+          <Text>Weight: {pokemon.weight}</Text>
+          <Text>Base Experience: {pokemon.base_experience}</Text>
+          <Banner>
+            <BannerText>{pokemon.order}</BannerText>
+          </Banner>
+        </AboutSection>
 
-      <AboutSection>
-      <Text>Height: {pokemon.height}</Text>
-      <Text>Weight: {pokemon.weight}</Text>
-      <Text>Base Experience: {pokemon.base_experience}</Text>
-      {/* <BannerContainer> */}
-        <Banner><BannerText>{pokemon.order}</BannerText></Banner>
-      {/* </BannerContainer> */}
-      </AboutSection>
-      {/* 
-        MOVES
-        <FlatList
-          scrollEnabled={true}
-          data={pokemon.moves}
-          renderItem={({item}) => <Text>{item.move.name}</Text>}
-        /> */}
-      {/*
-          STATS 
-        <FlatList
-          scrollEnabled={true}
-          data={pokemon.stats}
-          renderItem={({item}) => <Text>{item.stat.name} {item.base_stat}</Text>}
-        /> */}
-        
-        <TypeContainer> 
-           {pokemon.types.map((item) => (
-              <Type activeOpacity={0.7}>
-                <Text>
-                  {item.type.name + ' ' + getTypeEmoji(item.type.name)}
-                  </Text>
-              </Type>
-            ))}
-           </TypeContainer>
+        <TypeContainer>
+          {pokemon.types.map((item) => (
+            <Type activeOpacity={0.7}>
+              <Text>{item.type.name + ' ' + getTypeEmoji(item.type.name)}</Text>
+            </Type>
+          ))}
+        </TypeContainer>
 
+        <ButtonToggleContainer>
+          <ButtonToggle 
+            color={baseStatsIsActive}
+            onPress={() =>
+              handleToggle(
+                setBaseStatsToActive,
+                setMovesToActive,
+                setAbilitiesToActive
+              )
+            }
+          >
+            <ToggleText>BASE STATS</ToggleText>
+          </ButtonToggle>
+          <ButtonToggle 
+            color={movesIsActive}
+            onPress={() =>
+              handleToggle(
+                setMovesToActive,
+                setBaseStatsToActive,
+                setAbilitiesToActive
+              )
+            }
+          >
+            <ToggleText>MOVES</ToggleText>
+          </ButtonToggle>
+          <ButtonToggle
+            color={abilitiesIsActive}
+            onPress={() =>
+              handleToggle(
+                setAbilitiesToActive,
+                setMovesToActive,
+                setBaseStatsToActive
+              )
+            }
+          >
+            <ToggleText>ABILITIES</ToggleText>
+          </ButtonToggle>
+          {/* <ButtonToggle
+            onPress={() =>
+              handleToggle(
+                setEvolutionToActive,
+                setMovesToActive,
+                setBaseStatsToActive
+              )
+            }
+          >
+            <ToggleText>EVOLUTION</ToggleText>
+          </ButtonToggle> */}
+        </ButtonToggleContainer>
 
-           {/* <TypeContainer> 
-        <FlatList
-          scrollEnabled={true}
-          data={pokemon.types}
-          key={({item}) => item.type.slot}
-          renderItem={({item}) =>
-           <Type><Text>{getTypeEmoji(item.type.name)}</Text></Type>
-          }
-        />
-                   </TypeContainer> */}
-        
-
+        <StatsInfo>
+          {baseStatsIsActive ? (
+            <PokemonStats
+              data={pokemon.stats}
+              pokemonBackgroundColor={pokemonBackgroundColor}
+            />
+          ) : null}
+          {movesIsActive ? (
+            <PokemonMoves
+              data={pokemon.moves}
+              pokemonBackgroundColor={pokemonBackgroundColor}
+            />
+          ) : null}
+          {abilitiesIsActive ? (
+            <PokemonAbilities
+              data={pokemon.abilities}
+              pokemonBackgroundColor={pokemonBackgroundColor}
+            />
+          ) : null}
+        </StatsInfo>
       </PokemonSection>
     </>
   );
@@ -97,7 +167,7 @@ const PokeImage = styled.Image`
 `;
 
 const PokeImageContainer = styled.View`
-  flex: 1;
+  flex: 2;
   justify-content: flex-start;
   align-items: center;
   padding: ${wp('4%')}px;
@@ -108,8 +178,8 @@ const PokemonSection = styled.View`
   background-color: ${(props) => props.color};
   padding-vertical: ${wp('2')}px;
   border-radius: ${wp('5%')}px;
-  top: ${hp('-4%')}px;
-  margin-bottom: ${hp('-4%')}px;
+  /* top: ${hp('-4%')}px; */
+  padding-bottom: ${hp('20%')}px;
   flex: 3;
 `;
 
@@ -153,4 +223,27 @@ const Type = styled.View`
   background-color: rgba(255, 255, 255, 0.3);
   margin: ${wp('2%')}px;
   border-radius: ${wp('1%')}px;
+`;
+
+const ButtonToggle = styled.TouchableOpacity`
+  justify-content: center;
+  flex-direction: row;
+  margin-horizontal: ${wp('2%')}px;
+  background-color: ${(props) => props.color ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.3)'};
+  padding: ${wp('2%')}px;
+  border-radius: ${wp('2%')}px;
+`;
+
+const ButtonToggleContainer = styled.View`
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const ToggleText = styled.Text`
+  font-size: ${wp('5%')}px;
+  color: #ffffff;
+`;
+
+const StatsInfo = styled.View`
+padding: ${wp('2%')}px;
 `;

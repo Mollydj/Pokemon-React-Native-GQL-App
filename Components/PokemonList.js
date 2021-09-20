@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  LogBox,
-  SafeAreaView,
-} from 'react-native';
+import { FlatList, LogBox, SafeAreaView } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMON_LIST } from '../GraphQl/queries';
 import styled from 'styled-components/native';
@@ -15,23 +10,20 @@ import {
 } from 'react-native-responsive-screen';
 import { Icon } from 'react-native-eva-icons';
 import Card from './Card';
+import LoadingIndicator from './Helpers/LoadingIndicator';
 
 export default function PokemonList(props) {
   const { navigation } = props;
   const [text, onChangeText] = useState('');
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
     variables: { limit: 151, offset: 0 },
-    // variables: { limit: 6, offset: 0 },
+    // variables: { limit: 4, offset: 0 },
   });
 
   LogBox.ignoreLogs(['Warning: ...']);
 
   if (loading) {
-    return (
-      <LoadingIndicatorContainer>
-        <ActivityIndicator size='large' color='#FF5C00' />
-      </LoadingIndicatorContainer>
-    );
+    return <LoadingIndicator />;
   }
 
   if (error) {
@@ -39,11 +31,26 @@ export default function PokemonList(props) {
     // refetch();
   }
 
-  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} key={item.id} pokemonName={item.name}/>;
+  const getPrevPokemonId = (id, value) => {
+    id - 1;
+  };
+  const getNextPokemonId = (id, value) => {
+    id + 1;
+  };
+
+  const renderItem = ({ item }) => (
+    
+    <PokemonCard
+      navigation={navigation}
+      pokemon={item}
+      key={item.id.toString()}
+      pokemonName={item.name}
+    />
+  );
 
   return (
     <>
-    <SafeAreaView style={{ backgroundColor: '#FFD12F'}} />
+      <SafeAreaView style={{ backgroundColor: '#FFD12F' }} />
       <HeaderSection>
         <SearchContainer>
           <Icon name='search-outline' width={50} height={50} fill='#FF5C00' />
@@ -51,7 +58,7 @@ export default function PokemonList(props) {
             onChangeText={onChangeText}
             value={text}
             placeholder={'Search for Pokemon'}
-          ></SearchInput>
+          />
           <Icon
             name='close-circle-outline'
             width={20}
@@ -73,7 +80,7 @@ export default function PokemonList(props) {
             item.name.includes(text.toLowerCase())
           )}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           overflow='hidden'
         />
@@ -100,12 +107,6 @@ const CardContainer = styled.View`
 `;
 
 const SearchInput = styled.TextInput`
-  flex: 1;
-`;
-
-const LoadingIndicatorContainer = styled.View`
-  justify-content: center;
-  align-items: center;
   flex: 1;
 `;
 
