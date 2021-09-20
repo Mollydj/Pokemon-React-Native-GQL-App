@@ -2,6 +2,8 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 // import { setContext } from '@apollo/link-context';
 
 // see: https://github.com/graphql/swapi-graphql
+
+//https://beta.pokeapi.co/graphql/v1betagit
 const GRAPHQL_API_URL = 'https://graphql-pokeapi.vercel.app/api/graphql';
 
 /*
