@@ -13,31 +13,31 @@ import getPokemonImage from '../GraphQl/GetPokemonImage';
 import PokeImage from '../GraphQl/GetPokemonImage';
 
 export default function PokemonCard(props) {
-  const { pokemon, navigation, pokemonName } = props;
+  const { pokemon, navigation, pokemonName, PokemonId } = props;
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
 
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { name: pokemonName },
     onCompleted: () => {
-      getBackgroundColor(data.pokemon.types[0].type.name, setBackgroundColor);
+      getBackgroundColor(pokemon.pokemon_v2_pokemontypes[0].pokemon_v2_type.name, setBackgroundColor);
     },
   });
 
-  if (loading) {
-    return (
-      <LoadingIndicatorContainer>
-        <ActivityIndicator size='large' color='#ff0000' />
-      </LoadingIndicatorContainer>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <LoadingIndicatorContainer>
+  //       <ActivityIndicator size='large' color='#ff0000' />
+  //     </LoadingIndicatorContainer>
+  //   );
+  // }
 
-  if (error) {
-    console.log('Refetching...', error);
-  }
+  // if (error) {
+  //   console.log('Refetching...', error);
+  // }
 
   return (
     <>
-      <Container color={pokemonBackgroundColor} key={pokemon.id.toString()}>
+      <Container color={pokemonBackgroundColor} key={PokemonId.toString()}>
         <TouchablePokemon
           onPress={() =>
             navigation.navigate('PokemonDetails', {
@@ -47,17 +47,17 @@ export default function PokemonCard(props) {
             })
           }
         >
-          <PokemonName>{pokemon.name}</PokemonName>
-          <PokeImage pokemonID={pokemon.id}/>
-          <TypeContainer>
-            {data.pokemon.types.map((item) => (
-              <Type activeOpacity={0.7} key={item.slot.toString()}>
+          <PokemonName>{pokemonName}</PokemonName>
+          <PokeImage pokemonID={PokemonId}/>
+          {/* <TypeContainer>
+            {pokemon.pokemon_v2_pokemontypes.map((item) => (
+              <Type activeOpacity={0.7} key={item.id.toString()}>
                 <Pokemon >
-                  {item.type.name + ' ' + getTypeEmoji(item.type.name)}
+                  {item.pokemon_v2_type.name + ' ' + getTypeEmoji(item.pokemon_v2_type.name)}
                 </Pokemon>
               </Type>
             ))}
-          </TypeContainer>
+          </TypeContainer> */}
         </TouchablePokemon>
       </Container>
     </>

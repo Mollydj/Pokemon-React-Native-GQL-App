@@ -24,7 +24,6 @@ export default function PokeImage({pokemonID}) {
       </LoadingIndicatorContainer>
     );
   }
-  console.log('pokemon>>>', pokemon)
 
   return (
     <Image source={{ uri: pokemon.toString() }} />

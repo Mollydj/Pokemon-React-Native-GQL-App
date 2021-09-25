@@ -20,10 +20,10 @@ import getPokemonImage from '../GraphQl/GetPokemonImage';
 export default function PokemonList(props) {
   const { navigation } = props;
   const [text, onChangeText] = useState('');
-  const [pokemonData, setPokemonData] = useState();
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_LIST, {
-    variables: { limit: 151, offset: 0 },
+    // variables: { limit: 151, offset: 0 },
     // variables: { limit: 6, offset: 0 },
+    
   });
 
   LogBox.ignoreLogs(['Warning: ...']);
@@ -41,8 +41,11 @@ export default function PokemonList(props) {
     // refetch();
   }
 
-  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} listKey={item.id.toString()} pokemonName={item.name}/>;
+  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} PokemonId={item.id.toString()} pokemonName={item.name}/>;
+  // const renderItem = ({ item }) => console.log(item.name);
 
+
+  console.log('GET_POKEMON_LIST', data);
   return (
     <>
     <SafeAreaView style={{ backgroundColor: '#FFD12F'}} />
@@ -71,7 +74,8 @@ export default function PokemonList(props) {
 
         <FlatList
           scrollEnabled={true}
-          data={data.pokemons.results.filter((item) =>
+          // data={data.pokemon_v2_pokemon}
+          data={data.pokemon_v2_pokemon.filter((item) =>
             item.name.includes(text.toLowerCase())
           )}
           renderItem={renderItem}
