@@ -50,7 +50,7 @@ export default function PokemonCard(props) {
         >
           <PokemonName>{pokemonName}</PokemonName>
           <PokeImage pokemonId={pokemonId}/>
-          {/* <TypeContainer>
+          <TypeContainer>
             {pokemon.pokemon_v2_pokemontypes.map((item) => (
               <Type activeOpacity={0.7} key={item.id.toString()}>
                 <Pokemon >
@@ -58,7 +58,7 @@ export default function PokemonCard(props) {
                 </Pokemon>
               </Type>
             ))}
-          </TypeContainer> */}
+          </TypeContainer>
         </TouchablePokemon>
       </Container>
     </>
