@@ -16,10 +16,11 @@ import {
 import { Icon } from 'react-native-eva-icons';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 import NavigationHeader from './NavigationHeader';
+import PokeImage from '../GraphQl/GetPokemonImage';
 
 export default function PokemonDetails(props) {
   const { route, navigation } = props;
-  const { pokemon, pokemonBackgroundColor } = route.params;
+  const { pokemon, pokemonBackgroundColor, pokemonId } = route.params;
 
 
   return (
@@ -33,7 +34,7 @@ export default function PokemonDetails(props) {
         rightButton={<Icon name='star-outline' width={40} height={40} fill={pokemonBackgroundColor} />}
       />
       <HeaderSection>
-        <PokeImage source={{ uri: pokemon.artwork }} />
+      <PokeImage pokemonId={pokemonId}/>
       </HeaderSection>
       <PokemonSection color={pokemonBackgroundColor}>
 
@@ -41,14 +42,6 @@ export default function PokemonDetails(props) {
     </>
   );
 }
-
-const PokeImage = styled.Image`
-  resize-mode: contain;
-  width: 100%;
-  height: 100%;
-  flex: 1;
-  margin: ${wp('1%')}px;
-`;
 
 const HeaderSection = styled.View`
   flex: 1;

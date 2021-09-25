@@ -6,16 +6,16 @@ import {
     widthPercentageToDP as wp,
   } from 'react-native-responsive-screen';
 
-export default function PokeImage({pokemonID}) {
+export default function PokeImage({pokemonId}) {
   const [pokemon, setPokemon] = useState({});
   useEffect(() => {
     (async () => {
       const result = await axios.get(
-        `http://pokeapi.co/api/v2/pokemon/${pokemonID}`
+        `http://pokeapi.co/api/v2/pokemon/${pokemonId}`
       );
       setPokemon(result.data.sprites.other.['official-artwork'].front_default);
     })();
-  }, [pokemonID]);
+  }, [pokemonId]);
 
   if (!pokemon) {
     return (

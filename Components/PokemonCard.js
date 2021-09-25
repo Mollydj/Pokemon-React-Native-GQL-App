@@ -13,7 +13,7 @@ import getPokemonImage from '../GraphQl/GetPokemonImage';
 import PokeImage from '../GraphQl/GetPokemonImage';
 
 export default function PokemonCard(props) {
-  const { pokemon, navigation, pokemonName, PokemonId } = props;
+  const { pokemon, navigation, pokemonName, pokemonId } = props;
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
 
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
@@ -37,18 +37,19 @@ export default function PokemonCard(props) {
 
   return (
     <>
-      <Container color={pokemonBackgroundColor} key={PokemonId.toString()}>
+      <Container color={pokemonBackgroundColor} key={pokemonId.toString()}>
         <TouchablePokemon
           onPress={() =>
             navigation.navigate('PokemonDetails', {
               pokemon: pokemon,
               pokemonBackgroundColor,
-              navigation
+              navigation,
+              pokemonId
             })
           }
         >
           <PokemonName>{pokemonName}</PokemonName>
-          <PokeImage pokemonID={PokemonId}/>
+          <PokeImage pokemonId={pokemonId}/>
           {/* <TypeContainer>
             {pokemon.pokemon_v2_pokemontypes.map((item) => (
               <Type activeOpacity={0.7} key={item.id.toString()}>

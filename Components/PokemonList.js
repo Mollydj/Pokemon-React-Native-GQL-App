@@ -41,7 +41,7 @@ export default function PokemonList(props) {
     // refetch();
   }
 
-  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} PokemonId={item.id.toString()} pokemonName={item.name}/>;
+  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} pokemonId={item.id.toString()} pokemonName={item.name}/>;
   // const renderItem = ({ item }) => console.log(item.name);
 
 
