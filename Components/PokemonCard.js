@@ -9,10 +9,11 @@ import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
 import { FlatList, ActivityIndicator, LogBox } from 'react-native';
 import { getTypeEmoji } from './Helpers/EmojiHelper';
 import { getBackgroundColor } from './Helpers/BackgroundColorHelper';
+import getPokemonImage from '../GraphQl/GetPokemonImage';
+import PokeImage from '../GraphQl/GetPokemonImage';
 
 export default function PokemonCard(props) {
   const { pokemon, navigation, pokemonName } = props;
-  console.log('pokemonName', pokemonName);
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
 
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
@@ -21,9 +22,6 @@ export default function PokemonCard(props) {
       getBackgroundColor(data.pokemon.types[0].type.name, setBackgroundColor);
     },
   });
-
-  console.log('GET_POKEMON_BY_NAME', data);
-  // console.log(getBackgroundColor(data.pokemon.types[0].type.name));
 
   if (loading) {
     return (
@@ -35,12 +33,11 @@ export default function PokemonCard(props) {
 
   if (error) {
     console.log('Refetching...', error);
-    // refetch();
   }
 
   return (
     <>
-      <Container color={pokemonBackgroundColor} listKey={pokemon.id}>
+      <Container color={pokemonBackgroundColor} key={pokemon.id.toString()}>
         <TouchablePokemon
           onPress={() =>
             navigation.navigate('PokemonDetails', {
@@ -51,11 +48,11 @@ export default function PokemonCard(props) {
           }
         >
           <PokemonName>{pokemon.name}</PokemonName>
-          <PokeImage source={{ uri: pokemon.artwork }} />
+          <PokeImage pokemonID={pokemon.id}/>
           <TypeContainer>
             {data.pokemon.types.map((item) => (
-              <Type activeOpacity={0.7}>
-                <Pokemon>
+              <Type activeOpacity={0.7} key={item.slot.toString()}>
+                <Pokemon >
                   {item.type.name + ' ' + getTypeEmoji(item.type.name)}
                 </Pokemon>
               </Type>
@@ -103,13 +100,13 @@ const PokemonName = styled.Text`
   text-transform: capitalize;
 `;
 
-const PokeImage = styled.Image`
-  resize-mode: contain;
-  width: 100%;
-  height: 100%;
-  flex: 1;
-  margin: ${wp('1%')}px;
-`;
+// const PokeImage = styled.Image`
+//   resize-mode: contain;
+//   width: 100%;
+//   height: 100%;
+//   flex: 1;
+//   margin: ${wp('1%')}px;
+// `;
 
 const LoadingIndicatorContainer = styled.View`
   justify-content: flex-start;

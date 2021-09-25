@@ -15,6 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import { Icon } from 'react-native-eva-icons';
 import Card from './Card';
+import getPokemonImage from '../GraphQl/GetPokemonImage';
 
 export default function PokemonList(props) {
   const { navigation } = props;
@@ -40,7 +41,7 @@ export default function PokemonList(props) {
     // refetch();
   }
 
-  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} key={item.id} pokemonName={item.name}/>;
+  const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} listKey={item.id.toString()} pokemonName={item.name}/>;
 
   return (
     <>
@@ -74,7 +75,7 @@ export default function PokemonList(props) {
             item.name.includes(text.toLowerCase())
           )}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           overflow='hidden'
         />
