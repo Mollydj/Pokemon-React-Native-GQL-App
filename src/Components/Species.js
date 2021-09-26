@@ -4,28 +4,42 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { ActivityIndicator, FlatList, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import PokeImage from '../../GraphQl/GetPokemonImage';
 
 export default function Species(props) {
+
+  // const renderItem = ({ item }) => (
+  //   <PokemonCard
+  //     navigation={navigation}
+  //     pokemon={item}
+  //     pokemonId={item.id.toString()}
+  //     pokemonName={item.name}
+  //   />
+  // );
+
   const { data } = props;
+  // console.log('Species', data.pokemon_v2_pokemonspecies);
   return (
     <>
-        <Text>STATS</Text>
-        <FlatList
-          scrollEnabled={true}
-          data={data}
-          renderItem={({ item }) => (
-            <>
-            {console.log('ITEM', item)}
+
+      <FlatList
+        scrollEnabled={true}
+        data={data}
+        // keyExtractor={({ item }) => item.id}
+        renderItem={({ item }) => (
+          <>
+            <TouchablePokemon>
+            <PokeImage pokemonId={item.id} />
               <Text>
-                {item.name}
-                {item.base_stat}
+                {item.id} {item.name}
               </Text>
-            </>
-          )}
-          overflow='hidden'
-          scrollEnabled={false}
-        />
+            </TouchablePokemon>
+          </>
+        )}
+        overflow='hidden'
+        scrollEnabled={false}
+      />
     </>
   );
 }
@@ -65,14 +79,6 @@ const PokemonName = styled.Text`
   font-size: ${hp('2.5%')}px;
   text-transform: capitalize;
 `;
-
-// const PokeImage = styled.Image`
-//   resize-mode: contain;
-//   width: 100%;
-//   height: 100%;
-//   flex: 1;
-//   margin: ${wp('1%')}px;
-// `;
 
 const LoadingIndicatorContainer = styled.View`
   justify-content: flex-start;

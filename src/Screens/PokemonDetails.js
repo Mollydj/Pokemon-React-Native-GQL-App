@@ -55,8 +55,10 @@ export default function PokemonDetails(props) {
         }
       />
       <HeaderSection>
+
         <PokeImage pokemonId={pokemon.id} />
       </HeaderSection>
+
       <PokemonSection color={pokemonBackgroundColor}>
         <InfoToggleContainer>
           <InfoToggle
@@ -113,7 +115,7 @@ export default function PokemonDetails(props) {
         {isStatsActive && <Stats data={pokemon.pokemon_v2_pokemonstats} />}
         {isSpeciesActive && (
           <Species
-            data={pokemon.pokemon_v2_pokemonspecy.pokemon_v2_evolutionchain}
+            data={pokemon.pokemon_v2_pokemonspecy.pokemon_v2_evolutionchain.pokemon_v2_pokemonspecies}
           />
         )}
         {isAbilitiesActive && (
@@ -143,7 +145,6 @@ const PokemonSection = styled.View`
 
 const InfoToggleContainer = styled.View`
   flex-direction: row;
-  background-color: steelblue;
   justify-content: space-around;
   padding: ${wp('4%')}px;
   margin-bottom: ${wp('4%')}px;
@@ -164,4 +165,13 @@ const InfoToggleText = styled.Text`
   text-decoration-color: #ffffff;
   font-weight: bold;
   color: #ffffff;
+`;
+
+
+const OrderFlag = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  padding: ${wp('4%')}px;
+  margin-bottom: ${wp('4%')}px;
+  background-color: steelblue;
 `;

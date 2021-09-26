@@ -16,11 +16,10 @@ query pokemons {
 `;
 
 
-// pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
 
 export const GET_POKEMON_BY_NAME = gql`
-query pokemons {
-  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: 10}}) {
+  query pokemons ($id: Int) {
+  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
     name
     id
     order
@@ -58,6 +57,7 @@ query pokemons {
     }
   }
 }
+
 
 
 `;

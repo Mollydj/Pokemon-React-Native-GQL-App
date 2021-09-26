@@ -8,28 +8,29 @@ import { ActivityIndicator, FlatList, Text } from 'react-native';
 
 export default function About(props) {
   const { data, characteristics } = props;
-  console.log(characteristics);
   return (
     <>
       <Text>About</Text>
       <Text>#{data.order}</Text>
-        <Text>{data.height} m</Text>
-        <Text>{data.weight} Hectares</Text>
-        <Text>{data.base_experience} Base Experience</Text>
-        <Text>{'\n'}</Text>
-        <FlatList
-          scrollEnabled={true}
-          data={characteristics}
-          renderItem={({ item }) => (
-            <>
-            {console.log('ITEM', item.pokemon_v2_characteristicdescriptions)}
-            {item.pokemon_v2_characteristicdescriptions.map(item => <Text>{item.description}</Text>)}
-
-            </>
-          )}
-          overflow='hidden'
-          scrollEnabled={true}
-        />
+      <Text>{data.height} m</Text>
+      <Text>{data.weight} Hectares</Text>
+      <Text>{data.base_experience} Base Experience</Text>
+      <Text>{'\n'}</Text>
+      <FlatList
+        scrollEnabled={true}
+        data={characteristics}
+        renderItem={({ item }) => (
+          <>
+            <CharacteristicsContainer>
+              {item.pokemon_v2_characteristicdescriptions.map((item) => (
+                <Text>{item.description}</Text>
+              ))}
+            </CharacteristicsContainer>
+          </>
+        )}
+        overflow='hidden'
+        scrollEnabled={true}
+      />
     </>
   );
 }
@@ -42,11 +43,16 @@ const TouchablePokemon = styled.TouchableOpacity`
   flex: 1;
 `;
 
-const TypeContainer = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
+const AboutContainer = styled.View`
   justify-content: center;
   align-items: center;
+  background-color: steelblue;
+`;
+
+const CharacteristicsContainer = styled.View`
+  justify-content: center;
+  align-items: flex-start;
+  background-color: tan;
 `;
 
 const Type = styled.View`
