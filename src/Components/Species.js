@@ -4,18 +4,28 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text } from 'react-native';
 
-export default function About(props) {
+export default function Species(props) {
   const { data } = props;
   return (
     <>
-      <Text>About</Text>
-      <Text>#{data.order}</Text>
-        <Text>{data.height} m</Text>
-        <Text>{data.weight} Hectares</Text>
-        <Text>{data.base_experience} Base Experience</Text>
-        <Text>{'\n'}</Text>
+        <Text>STATS</Text>
+        <FlatList
+          scrollEnabled={true}
+          data={data}
+          renderItem={({ item }) => (
+            <>
+            {console.log('ITEM', item)}
+              <Text>
+                {item.name}
+                {item.base_stat}
+              </Text>
+            </>
+          )}
+          overflow='hidden'
+          scrollEnabled={false}
+        />
     </>
   );
 }
@@ -79,4 +89,9 @@ const Container = styled.View`
   padding: ${wp('1%')}px;
   justify-content: center;
   align-items: center;
+`;
+
+const CurrentEvolution = styled.Text`
+  background-color: #ffffff;
+  color: ${(props) => props.color};
 `;

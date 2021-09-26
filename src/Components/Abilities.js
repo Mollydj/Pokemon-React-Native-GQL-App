@@ -4,18 +4,30 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text } from 'react-native';
 
-export default function About(props) {
+export default function Abilities(props) {
   const { data } = props;
   return (
     <>
-      <Text>About</Text>
-      <Text>#{data.order}</Text>
-        <Text>{data.height} m</Text>
-        <Text>{data.weight} Hectares</Text>
-        <Text>{data.base_experience} Base Experience</Text>
-        <Text>{'\n'}</Text>
+        <Text>ABILITIES</Text>
+        <FlatList
+          scrollEnabled={true}
+          data={data}
+          renderItem={({ item }) => (
+            <>
+              <Text>{item.pokemon_v2_ability.name}</Text>
+              <Text>
+                {item.pokemon_v2_ability.pokemon_v2_abilityeffecttexts.map(
+                  (item) => (item.language_id === 9 ? item.short_effect : null)
+                )}
+              </Text>
+              <Text>{'\n'}</Text>
+            </>
+          )}
+          overflow='hidden'
+          scrollEnabled={false}
+        />
     </>
   );
 }
@@ -79,4 +91,9 @@ const Container = styled.View`
   padding: ${wp('1%')}px;
   justify-content: center;
   align-items: center;
+`;
+
+const CurrentEvolution = styled.Text`
+  background-color: #ffffff;
+  color: ${(props) => props.color};
 `;

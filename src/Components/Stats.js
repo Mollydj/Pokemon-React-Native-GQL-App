@@ -4,18 +4,26 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text } from 'react-native';
 
-export default function About(props) {
+export default function Stats(props) {
   const { data } = props;
   return (
     <>
-      <Text>About</Text>
-      <Text>#{data.order}</Text>
-        <Text>{data.height} m</Text>
-        <Text>{data.weight} Hectares</Text>
-        <Text>{data.base_experience} Base Experience</Text>
-        <Text>{'\n'}</Text>
+        <Text>STATS</Text>
+        <FlatList
+          scrollEnabled={true}
+          data={data}
+          renderItem={({ item }) => (
+            <>
+              <Text>
+                {item.pokemon_v2_stat.name}: {item.base_stat}
+              </Text>
+            </>
+          )}
+          overflow='hidden'
+          scrollEnabled={false}
+        />
     </>
   );
 }
