@@ -52,6 +52,9 @@ export default function PokemonDetails(props) {
         <PokeImage pokemonId={pokemon.id} />
       </HeaderSection>
       <PokemonSection color={pokemonBackgroundColor}>
+        <InfoToggle>
+          <Text>Hello</Text>
+        </InfoToggle>
         <Text>BASIC INFO</Text>
         <Text>#{pokemon.order}</Text>
         <Text>{pokemon.height} m</Text>
@@ -127,6 +130,11 @@ const PokemonSection = styled.View`
   top: ${hp('-4%')}px;
   margin-bottom: ${hp('-4%')}px;
   flex: 3;
+`;
+
+const InfoToggle = styled.View`
+  background-color: steelblue;
+  flex-direction: row;
 `;
 
 const CurrentEvolution = styled.Text`
