@@ -25,17 +25,17 @@ export default function PokemonCard(props) {
     },
   });
 
-  // if (loading) {
-  //   return (
-  //     <LoadingIndicatorContainer>
-  //       <ActivityIndicator size='large' color='#ff0000' />
-  //     </LoadingIndicatorContainer>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <LoadingIndicatorContainer>
+        <ActivityIndicator size='large' color='#ff0000' />
+      </LoadingIndicatorContainer>
+    );
+  }
 
-  // if (error) {
-  //   console.log('Refetching...', error);
-  // }
+  if (error) {
+    console.log('Refetching...', error);
+  }
 
   return (
     <>

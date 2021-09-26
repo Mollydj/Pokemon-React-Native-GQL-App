@@ -42,10 +42,7 @@ export default function PokemonList(props) {
   }
 
   const renderItem = ({ item }) => <PokemonCard navigation={navigation} pokemon={item} pokemonId={item.id.toString()} pokemonName={item.name}/>;
-  // const renderItem = ({ item }) => console.log(item.name);
 
-
-  console.log('GET_POKEMON_LIST', data);
   return (
     <>
     <SafeAreaView style={{ backgroundColor: '#FFD12F'}} />

@@ -23,8 +23,6 @@ export default function PokemonDetails(props) {
   const { pokemon, pokemonBackgroundColor, pokemonId, pokemonData } =
     route.params;
 
-  console.log('pokemonId', pokemonId);
-
   return (
     <>
       <SafeAreaView />
@@ -62,13 +60,11 @@ export default function PokemonDetails(props) {
         <Text>{'\n'}</Text>
 
         <Text>STATS</Text>
-        {/* {console.log(pokemon.pokemon_v2_pokemonstats)} */}
         <FlatList
           scrollEnabled={true}
           data={pokemon.pokemon_v2_pokemonstats}
           renderItem={({ item }) => (
             <>
-              {/* {console.log(item.pokemon_v2_stat.name)} */}
               <Text>
                 {item.pokemon_v2_stat.name}: {item.base_stat}
               </Text>
@@ -79,10 +75,6 @@ export default function PokemonDetails(props) {
         />
 
         <Text>SPECIES</Text>
-        {console.log(
-          pokemon.pokemon_v2_pokemonspecy.pokemon_v2_evolutionchain
-            .pokemon_v2_pokemonspecies
-        )}
         <FlatList
           scrollEnabled={true}
           data={
