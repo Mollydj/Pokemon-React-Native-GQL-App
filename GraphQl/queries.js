@@ -1,24 +1,6 @@
 import { gql } from '@apollo/client';
 
 export const GET_POKEMON_LIST = gql`
-# query pokemons($limit: Int, $offset: Int) {
-#     pokemons(limit: $limit, offset: $offset) {
-#       count
-#       next
-#       previous
-#       nextOffset
-#       prevOffset
-#       status
-#       message
-#       results {
-#         url
-#         name
-#         image
-#         id
-#         artwork
-#       }
-#     }
-#   }
 query pokemons {
   pokemon_v2_pokemon(limit: 151) {
     name
@@ -42,9 +24,6 @@ query pokemons ($id: Int) {
     weight
     height
     base_experience
-    # pokemon_v2_pokemonspecy {
-    #   evolution_chain_id
-    # }
     pokemon_v2_pokemonabilities {
       pokemon_v2_ability {
         name
