@@ -5,12 +5,11 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import { useQuery } from '@apollo/client';
-import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
-import { FlatList, ActivityIndicator, LogBox } from 'react-native';
-import { getTypeEmoji } from './Helpers/EmojiHelper';
-import { getBackgroundColor } from './Helpers/BackgroundColorHelper';
-import getPokemonImage from '../GraphQl/GetPokemonImage';
-import PokeImage from '../GraphQl/GetPokemonImage';
+import { GET_POKEMON_BY_NAME } from '../../GraphQl/queries';
+import { ActivityIndicator } from 'react-native';
+import { getTypeEmoji } from '../Helpers/EmojiHelper';
+import { getBackgroundColor } from '../Helpers/BackgroundColorHelper';
+import PokeImage from '../../GraphQl/GetPokemonImage';
 
 export default function PokemonCard(props) {
   const { pokemon, navigation, pokemonName, pokemonId } = props;

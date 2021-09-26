@@ -1,6 +1,6 @@
 import React from 'react';
-import PokemonList from '../Components/PokemonList';
-import PokemonDetails from '../Components/PokemonDetails';
+import PokemonList from '../Screens/PokemonList';
+import PokemonDetails from '../Screens/PokemonDetails';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';

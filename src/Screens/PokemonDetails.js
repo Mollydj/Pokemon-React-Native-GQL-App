@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { useQuery } from '@apollo/client';
-import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
 import {
   Text,
-  View,
   FlatList,
-  ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
 import { Icon } from 'react-native-eva-icons';
-import { getTypeEmoji } from './Helpers/EmojiHelper';
-import NavigationHeader from './NavigationHeader';
-import PokeImage from '../GraphQl/GetPokemonImage';
+import NavigationHeader from '../Components/NavigationHeader';
+import PokeImage from '../../GraphQl/GetPokemonImage';
 
 export default function PokemonDetails(props) {
   const { route, navigation } = props;

@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { useQuery } from '@apollo/client';
-import { GET_POKEMON_BY_NAME } from '../GraphQl/queries';
 import {
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
   ScrollView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Card(props) {
   return (

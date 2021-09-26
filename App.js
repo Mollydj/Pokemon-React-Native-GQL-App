@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Text,
-  View,
-  SafeAreaView,
-  ActivityIndicator,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-} from 'react-native';
-import { ApolloProvider, useQuery, gql } from '@apollo/client';
+import React from 'react';
+import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './apollo';
-import { GET_POKEMON_LIST } from './GraphQl/queries';
-import styled from 'styled-components/native';
-import PokemonCard from './Components/PokemonCard';
-import PokemonList from './Components/PokemonList';
-import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainNavigator from './Navigators/MainNavigator';
+import MainNavigator from './src/Navigators/MainNavigator';
 
 const Stack = createStackNavigator();
 

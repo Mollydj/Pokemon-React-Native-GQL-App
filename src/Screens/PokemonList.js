@@ -6,16 +6,15 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { GET_POKEMON_LIST } from '../GraphQl/queries';
+import { GET_POKEMON_LIST } from '../../GraphQl/queries';
 import styled from 'styled-components/native';
-import PokemonCard from './PokemonCard';
+import PokemonCard from '../Components/PokemonCard';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import { Icon } from 'react-native-eva-icons';
-import Card from './Card';
-import getPokemonImage from '../GraphQl/GetPokemonImage';
+import Card from '../Components/Card';
 
 export default function PokemonList(props) {
   const { navigation } = props;
