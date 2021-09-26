@@ -21,9 +21,10 @@ export default function About(props) {
         data={characteristics}
         renderItem={({ item }) => (
           <>
+          
             <CharacteristicsContainer>
               {item.pokemon_v2_characteristicdescriptions.map((item) => (
-                <Text>{item.description}</Text>
+                <Text key={item.characteristic_id}>{item.description}</Text>
               ))}
             </CharacteristicsContainer>
           </>

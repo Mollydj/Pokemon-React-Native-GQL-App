@@ -15,8 +15,7 @@ import Abilities from '../Components/Abilities';
 
 export default function PokemonDetails(props) {
   const { route, navigation } = props;
-  const { pokemon, pokemonBackgroundColor, characteristics } =
-    route.params;
+  const { pokemon, pokemonBackgroundColor, characteristics } = route.params;
   const [isAboutActive, setAboutActive] = useState(true);
   const [isStatsActive, setStatsActive] = useState(false);
   const [isSpeciesActive, setSpeciesActive] = useState(false);
@@ -55,7 +54,6 @@ export default function PokemonDetails(props) {
         }
       />
       <HeaderSection>
-
         <PokeImage pokemonId={pokemon.id} />
       </HeaderSection>
 
@@ -103,7 +101,7 @@ export default function PokemonDetails(props) {
                 setAbilitiesActive,
                 setAboutActive,
                 setStatsActive,
-                setSpeciesActive,
+                setSpeciesActive
               )
             }
           >
@@ -111,11 +109,17 @@ export default function PokemonDetails(props) {
           </InfoToggle>
         </InfoToggleContainer>
 
-        {isAboutActive && <About data={pokemon} characteristics={characteristics} />}
+        {isAboutActive && (
+          <About data={pokemon} characteristics={characteristics} />
+        )}
         {isStatsActive && <Stats data={pokemon.pokemon_v2_pokemonstats} />}
         {isSpeciesActive && (
           <Species
-            data={pokemon.pokemon_v2_pokemonspecy.pokemon_v2_evolutionchain.pokemon_v2_pokemonspecies}
+            pokemonId={pokemon.id}
+            data={
+              pokemon.pokemon_v2_pokemonspecy.pokemon_v2_evolutionchain
+                .pokemon_v2_pokemonspecies
+            }
           />
         )}
         {isAbilitiesActive && (
@@ -128,10 +132,9 @@ export default function PokemonDetails(props) {
 
 const HeaderSection = styled.View`
   flex: 1;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: ${wp('4%')}px;
-  margin: ${wp('4%')}px;
 `;
 
 const PokemonSection = styled.View`
@@ -166,7 +169,6 @@ const InfoToggleText = styled.Text`
   font-weight: bold;
   color: #ffffff;
 `;
-
 
 const OrderFlag = styled.View`
   flex-direction: row;

@@ -10,13 +10,12 @@ export default function Stats(props) {
   const { data } = props;
   return (
     <>
-        <Text>STATS</Text>
         <FlatList
           scrollEnabled={true}
           data={data}
           renderItem={({ item }) => (
             <>
-              <Text>
+              <Text key={item.pokemon_v2_stat.id}>
                 {item.pokemon_v2_stat.name}: {item.base_stat}
               </Text>
             </>

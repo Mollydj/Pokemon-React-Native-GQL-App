@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   heightPercentageToDP as hp,
@@ -8,55 +8,50 @@ import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import PokeImage from '../../GraphQl/GetPokemonImage';
 
 export default function Species(props) {
+  const { data, pokemonId } = props;
+  const [isActivePokemon, setPokemonToActive] = useState(pokemonId);
 
-  // const renderItem = ({ item }) => (
-  //   <PokemonCard
-  //     navigation={navigation}
-  //     pokemon={item}
-  //     pokemonId={item.id.toString()}
-  //     pokemonName={item.name}
-  //   />
-  // );
-
-  const { data } = props;
-  // console.log('Species', data.pokemon_v2_pokemonspecies);
+  console.log(pokemonId);
   return (
     <>
-
+    <TypeContainer>
       <FlatList
         scrollEnabled={true}
+        
         data={data}
-        // keyExtractor={({ item }) => item.id}
         renderItem={({ item }) => (
           <>
-            <TouchablePokemon>
-            <PokeImage pokemonId={item.id} />
-              <Text>
-                {item.id} {item.name}
-              </Text>
+            <TouchablePokemon key={item.id} isActivePokemon={pokemonId === item.id}>
+              <PokeImage pokemonId={item.id} />
+              <Text>{item.name}</Text>
             </TouchablePokemon>
           </>
         )}
         overflow='hidden'
-        scrollEnabled={false}
+        scrollEnabled={true}
       />
+      </TypeContainer>
     </>
   );
 }
 
-const TouchablePokemon = styled.TouchableOpacity`
+const TouchablePokemon = styled.View`
+  background-color: ${(props) => props.isActivePokemon ? '#ffffff' : 'steelblue'};
   justify-content: center;
   align-items: center;
-  width: ${wp('35%')}px;
-  height: ${wp('35%')}px;
-  flex: 1;
+  /* flex: 1; */
+  height: ${hp('20%')}px;
+  margin: 2px;
+
 `;
 
 const TypeContainer = styled.View`
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  background-color: tan;
+  padding-bottom: ${hp('10%')}px;
+  /* flex:1; */
 `;
 
 const Type = styled.View`
