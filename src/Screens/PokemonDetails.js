@@ -30,8 +30,9 @@ export default function PokemonDetails(props) {
 
   return (
     <>
-      <SafeAreaView />
 
+      <Container>
+      <SafeAreaView />
       <NavigationHeader
         color={pokemonBackgroundColor}
         headerTitle={pokemon.name}
@@ -53,6 +54,7 @@ export default function PokemonDetails(props) {
           />
         }
       />
+
       <HeaderSection>
         <PokeImage pokemonId={pokemon.id} />
       </HeaderSection>
@@ -126,24 +128,23 @@ export default function PokemonDetails(props) {
           <Abilities data={pokemon.pokemon_v2_pokemonabilities} />
         )}
       </PokemonSection>
+      </Container>
     </>
   );
 }
 
 const HeaderSection = styled.View`
-  flex: 1;
+  flex: 2;
   justify-content: center;
   align-items: center;
-  padding: ${wp('4%')}px;
 `;
 
 const PokemonSection = styled.View`
   background-color: ${(props) => props.color};
   padding: ${wp('2')}px;
   border-radius: ${wp('5%')}px;
-  top: ${hp('-4%')}px;
   margin-bottom: ${hp('-4%')}px;
-  flex: 3;
+  flex: 5;
 `;
 
 const InfoToggleContainer = styled.View`
@@ -170,10 +171,6 @@ const InfoToggleText = styled.Text`
   color: #ffffff;
 `;
 
-const OrderFlag = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  padding: ${wp('4%')}px;
-  margin-bottom: ${wp('4%')}px;
-  background-color: steelblue;
+const Container = styled.View`
+  flex:1;
 `;
