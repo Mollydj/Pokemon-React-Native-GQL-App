@@ -34,15 +34,17 @@ query pokemons {
 `;
 
 export const GET_POKEMON_BY_NAME = gql`
-query pokemonByName {
-  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: 10}}) {
+query pokemons ($id: Int) {
+  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
     name
     id
     order
     weight
-    pokemon_v2_pokemonspecy {
-      evolution_chain_id
-    }
+    height
+    base_experience
+    # pokemon_v2_pokemonspecy {
+    #   evolution_chain_id
+    # }
     pokemon_v2_pokemonabilities {
       pokemon_v2_ability {
         name
@@ -58,8 +60,34 @@ query pokemonByName {
       }
       base_stat
     }
+    pokemon_v2_pokemonspecy {
+      evolution_chain_id
+      pokemon_v2_evolutionchain {
+        pokemon_v2_pokemonspecies {
+          name
+          id
+        }
+      }
+    }
+
   }
 }
 
+
 `;
 
+export const GET_POKEMON_EVOLUTION_BY_ID = gql`
+query pokemons ($id: Int) {
+  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
+    id
+  } 
+  pokemon_v2_evolutionchain {
+    pokemon_v2_pokemonspecies {
+      name
+      evolves_from_species_id
+      forms_switchable
+      id
+    }
+  }
+}
+`;

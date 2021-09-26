@@ -15,11 +15,13 @@ import PokeImage from '../GraphQl/GetPokemonImage';
 export default function PokemonCard(props) {
   const { pokemon, navigation, pokemonName, pokemonId } = props;
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
+  const [pokemonData, setPokemonData] = useState();
 
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
-    variables: { name: pokemonName },
+    variables: { id: pokemonId },
     onCompleted: () => {
       getBackgroundColor(pokemon.pokemon_v2_pokemontypes[0].pokemon_v2_type.name, setBackgroundColor);
+      setPokemonData(data.pokemon_v2_pokemon[0]);
     },
   });
 
@@ -41,7 +43,7 @@ export default function PokemonCard(props) {
         <TouchablePokemon
           onPress={() =>
             navigation.navigate('PokemonDetails', {
-              pokemon: pokemon,
+              pokemon: pokemonData,
               pokemonBackgroundColor,
               navigation,
               pokemonId
