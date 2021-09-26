@@ -11,7 +11,6 @@ export default function Species(props) {
   const { data, pokemonId } = props;
   const [isActivePokemon, setPokemonToActive] = useState(pokemonId);
 
-  console.log(pokemonId);
   return (
     <>
     <TypeContainer>
@@ -39,7 +38,7 @@ const TouchablePokemon = styled.View`
   background-color: ${(props) => props.isActivePokemon ? '#ffffff' : 'steelblue'};
   justify-content: center;
   align-items: center;
-  /* flex: 1; */
+  flex: 1;
   height: ${hp('20%')}px;
   margin: 2px;
 
