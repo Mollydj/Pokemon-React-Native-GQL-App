@@ -13,13 +13,15 @@ import getPokemonImage from '../GraphQl/GetPokemonImage';
 import PokeImage from '../GraphQl/GetPokemonImage';
 
 export default function PokemonCard(props) {
-  const { pokemon, navigation, pokemonName } = props;
+  const { pokemon, navigation, pokemonName, pokemonId } = props;
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
+  const [pokemonData, setPokemonData] = useState();
 
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
-    variables: { name: pokemonName },
+    variables: { id: pokemonId },
     onCompleted: () => {
-      getBackgroundColor(data.pokemon.types[0].type.name, setBackgroundColor);
+      getBackgroundColor(pokemon.pokemon_v2_pokemontypes[0].pokemon_v2_type.name, setBackgroundColor);
+      setPokemonData(data.pokemon_v2_pokemon[0]);
     },
   });
 
@@ -37,23 +39,24 @@ export default function PokemonCard(props) {
 
   return (
     <>
-      <Container color={pokemonBackgroundColor} key={pokemon.id.toString()}>
+      <Container color={pokemonBackgroundColor} key={pokemonId.toString()}>
         <TouchablePokemon
           onPress={() =>
             navigation.navigate('PokemonDetails', {
-              pokemon: pokemon,
+              pokemon: pokemonData,
               pokemonBackgroundColor,
-              navigation
+              navigation,
+              pokemonId
             })
           }
         >
-          <PokemonName>{pokemon.name}</PokemonName>
-          <PokeImage pokemonID={pokemon.id}/>
+          <PokemonName>{pokemonName}</PokemonName>
+          <PokeImage pokemonId={pokemonId}/>
           <TypeContainer>
-            {data.pokemon.types.map((item) => (
-              <Type activeOpacity={0.7} key={item.slot.toString()}>
+            {pokemon.pokemon_v2_pokemontypes.map((item) => (
+              <Type activeOpacity={0.7} key={item.id.toString()}>
                 <Pokemon >
-                  {item.type.name + ' ' + getTypeEmoji(item.type.name)}
+                  {item.pokemon_v2_type.name + ' ' + getTypeEmoji(item.pokemon_v2_type.name)}
                 </Pokemon>
               </Type>
             ))}

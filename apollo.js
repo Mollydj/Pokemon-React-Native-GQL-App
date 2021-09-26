@@ -3,9 +3,10 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
 // see: https://github.com/graphql/swapi-graphql
 
-//https://beta.pokeapi.co/graphql/v1betagit
+//https://beta.pokeapi.co/graphql/v1beta
 // https://beta.pokeapi.co/graphql/console/
-const GRAPHQL_API_URL = 'https://graphql-pokeapi.vercel.app/api/graphql';
+
+const GRAPHQL_API_URL = 'https://beta.pokeapi.co/graphql/v1beta';
 
 /*
 uncomment the code below in case you are using a GraphQL API that requires some form of

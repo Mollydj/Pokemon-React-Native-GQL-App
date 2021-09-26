@@ -18,40 +18,31 @@ export default function NavigationHeader(props) {
 
   return (
     <Container>
-      <LeftWrapper>{leftButton}</LeftWrapper>
+      <IconWrapper>{leftButton}</IconWrapper>
       <TitleWrapper>
         <Title color={color} hasSubtitle={headerSubTitle}>
           {headerTitle}
         </Title>
         {headerButton}
       </TitleWrapper>
-      <RightWrapper>{rightButton}</RightWrapper>
+      <IconWrapper>{rightButton}</IconWrapper>
     </Container>
   );
 }
 
 const Container = styled.View`
   flex-direction: row;
-  padding-left: ${hp('0.5%')}px;
-  padding-right: ${hp('0.5%')}px;
+  padding-left: ${wp('1.5%')}px;
+  padding-right: ${wp('1.5%')}px;
+  justify-content: space-between;
 `;
 
-const LeftWrapper = styled.View`
-  width: ${wp('26%')}px;
+const IconWrapper = styled.View`
   align-items: flex-start;
-  justify-content: center;
-  margin-left:${wp('2%')}px;
-`;
-
-const RightWrapper = styled.View`
-  width: ${wp('26%')}px;
-  align-items: flex-end;
-  margin-right:${wp('2%')}px;
   justify-content: center;
 `;
 
 const TitleWrapper = styled.View`
-  width: ${wp('48%')}px;
   justify-content: center;
   align-items: center;
   flex: 1;
@@ -63,12 +54,5 @@ const Title = styled.Text`
   color: ${(props) => props.color};
   text-align: center;
   text-transform: capitalize;
-  flex: 1;
   justify-content: center;
-`;
-
-const Subtitle = styled.Text`
-  font-weight: 300;
-  font-size: ${hp('1.3%')}px;
-  text-align: center;
 `;
