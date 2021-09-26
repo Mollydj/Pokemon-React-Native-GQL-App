@@ -15,9 +15,12 @@ query pokemons {
 }
 `;
 
+
+// pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
+
 export const GET_POKEMON_BY_NAME = gql`
-query pokemons ($id: Int) {
-  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
+query pokemons {
+  pokemon_v2_pokemon(limit: 151, where: {id: {_eq: 10}}) {
     name
     id
     order
@@ -48,7 +51,11 @@ query pokemons ($id: Int) {
         }
       }
     }
-
+  }
+  pokemon_v2_characteristic {
+    pokemon_v2_characteristicdescriptions(where: {language_id: {_eq: 9}}) {
+      description
+    }
   }
 }
 

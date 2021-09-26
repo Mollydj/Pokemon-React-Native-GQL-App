@@ -15,7 +15,7 @@ import Abilities from '../Components/Abilities';
 
 export default function PokemonDetails(props) {
   const { route, navigation } = props;
-  const { pokemon, pokemonBackgroundColor, pokemonId, pokemonData } =
+  const { pokemon, pokemonBackgroundColor, characteristics } =
     route.params;
   const [isAboutActive, setAboutActive] = useState(true);
   const [isStatsActive, setStatsActive] = useState(false);
@@ -109,7 +109,7 @@ export default function PokemonDetails(props) {
           </InfoToggle>
         </InfoToggleContainer>
 
-        {isAboutActive && <About data={pokemon} />}
+        {isAboutActive && <About data={pokemon} characteristics={characteristics} />}
         {isStatsActive && <Stats data={pokemon.pokemon_v2_pokemonstats} />}
         {isSpeciesActive && (
           <Species

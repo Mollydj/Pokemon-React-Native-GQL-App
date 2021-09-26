@@ -4,10 +4,11 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text } from 'react-native';
 
 export default function About(props) {
-  const { data } = props;
+  const { data, characteristics } = props;
+  console.log(characteristics);
   return (
     <>
       <Text>About</Text>
@@ -16,6 +17,19 @@ export default function About(props) {
         <Text>{data.weight} Hectares</Text>
         <Text>{data.base_experience} Base Experience</Text>
         <Text>{'\n'}</Text>
+        <FlatList
+          scrollEnabled={true}
+          data={characteristics}
+          renderItem={({ item }) => (
+            <>
+            {console.log('ITEM', item.pokemon_v2_characteristicdescriptions)}
+            {item.pokemon_v2_characteristicdescriptions.map(item => <Text>{item.description}</Text>)}
+
+            </>
+          )}
+          overflow='hidden'
+          scrollEnabled={true}
+        />
     </>
   );
 }
