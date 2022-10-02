@@ -15,8 +15,10 @@ query pokemons {
 }
 `;
 
+
+
 export const GET_POKEMON_BY_NAME = gql`
-query pokemons ($id: Int) {
+  query pokemons ($id: Int) {
   pokemon_v2_pokemon(limit: 151, where: {id: {_eq: $id} }) {
     name
     id
@@ -27,7 +29,8 @@ query pokemons ($id: Int) {
     pokemon_v2_pokemonabilities {
       pokemon_v2_ability {
         name
-        pokemon_v2_abilityeffecttexts {
+        id
+        pokemon_v2_abilityeffecttexts(where: {language_id: {_eq: 9}}) {
           short_effect
           language_id
         }
@@ -36,6 +39,7 @@ query pokemons ($id: Int) {
     pokemon_v2_pokemonstats {
       pokemon_v2_stat {
         name
+        id
       }
       base_stat
     }
@@ -48,9 +52,15 @@ query pokemons ($id: Int) {
         }
       }
     }
-
+  }
+  pokemon_v2_characteristic {
+    pokemon_v2_characteristicdescriptions(where: {language_id: {_eq: 9}}) {
+      description
+      characteristic_id
+    }
   }
 }
+
 
 
 `;

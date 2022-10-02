@@ -15,12 +15,14 @@ export default function PokemonCard(props) {
   const { pokemon, navigation, pokemonName, pokemonId } = props;
   const [pokemonBackgroundColor, setBackgroundColor] = useState('#404040');
   const [pokemonData, setPokemonData] = useState();
+  const [pokemonCharacteristics, setCharacteristics] = useState();
 
   const { data, error, loading, refetch } = useQuery(GET_POKEMON_BY_NAME, {
     variables: { id: pokemonId },
     onCompleted: () => {
       getBackgroundColor(pokemon.pokemon_v2_pokemontypes[0].pokemon_v2_type.name, setBackgroundColor);
       setPokemonData(data.pokemon_v2_pokemon[0]);
+      setCharacteristics(data.pokemon_v2_characteristic);
     },
   });
 
@@ -32,9 +34,9 @@ export default function PokemonCard(props) {
     );
   }
 
-  if (error) {
-    console.log('Refetching...', error);
-  }
+  // if (error) {
+  //   console.log('Refetching...', error);
+  // }
 
   return (
     <>
@@ -43,6 +45,7 @@ export default function PokemonCard(props) {
           onPress={() =>
             navigation.navigate('PokemonDetails', {
               pokemon: pokemonData,
+              characteristics: pokemonCharacteristics,
               pokemonBackgroundColor,
               navigation,
               pokemonId

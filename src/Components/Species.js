@@ -1,59 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { ActivityIndicator, FlatList, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import PokeImage from '../../GraphQl/GetPokemonImage';
 
-export default function About(props) {
-  const { data, characteristics } = props;
+export default function Species(props) {
+  const { data, pokemonId } = props;
+  const [isActivePokemon, setPokemonToActive] = useState(pokemonId);
+
   return (
     <>
-      <Text>About</Text>
-      <Text>#{data.order}</Text>
-      <Text>{data.height} m</Text>
-      <Text>{data.weight} Hectares</Text>
-      <Text>{data.base_experience} Base Experience</Text>
-      <Text>{'\n'}</Text>
+    <TypeContainer>
       <FlatList
         scrollEnabled={true}
-        data={characteristics}
+        
+        data={data}
         renderItem={({ item }) => (
           <>
-          
-            <CharacteristicsContainer>
-              {item.pokemon_v2_characteristicdescriptions.map((item) => (
-                <Text key={item.characteristic_id}>{item.description}</Text>
-              ))}
-            </CharacteristicsContainer>
+            <TouchablePokemon key={item.id} isActivePokemon={pokemonId === item.id}>
+              <PokeImage pokemonId={item.id} />
+              <Text>{item.name}</Text>
+            </TouchablePokemon>
           </>
         )}
         overflow='hidden'
         scrollEnabled={true}
       />
+      </TypeContainer>
     </>
   );
 }
 
-const TouchablePokemon = styled.TouchableOpacity`
+const TouchablePokemon = styled.View`
+  background-color: ${(props) => props.isActivePokemon ? '#ffffff' : 'steelblue'};
   justify-content: center;
   align-items: center;
-  width: ${wp('35%')}px;
-  height: ${wp('35%')}px;
   flex: 1;
+  height: ${hp('20%')}px;
+  margin: 2px;
+
 `;
 
-const AboutContainer = styled.View`
-  justify-content: center;
+const TypeContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  background-color: steelblue;
-`;
-
-const CharacteristicsContainer = styled.View`
-  justify-content: center;
-  align-items: flex-start;
   background-color: tan;
+  padding-bottom: ${hp('10%')}px;
+  /* flex:1; */
 `;
 
 const Type = styled.View`
@@ -77,14 +74,6 @@ const PokemonName = styled.Text`
   text-transform: capitalize;
 `;
 
-// const PokeImage = styled.Image`
-//   resize-mode: contain;
-//   width: 100%;
-//   height: 100%;
-//   flex: 1;
-//   margin: ${wp('1%')}px;
-// `;
-
 const LoadingIndicatorContainer = styled.View`
   justify-content: flex-start;
   align-items: center;
@@ -100,4 +89,9 @@ const Container = styled.View`
   padding: ${wp('1%')}px;
   justify-content: center;
   align-items: center;
+`;
+
+const CurrentEvolution = styled.Text`
+  background-color: #ffffff;
+  color: ${(props) => props.color};
 `;
