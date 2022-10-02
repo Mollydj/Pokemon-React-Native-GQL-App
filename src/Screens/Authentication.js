@@ -16,7 +16,6 @@ import {
 import { Icon } from 'react-native-eva-icons';
 import Card from '../Components/Card';
 import { AuthenticationButton, AuthenticationButtonContainer, ButtonText, Container, CredentialInput, InputContainer } from '../Styling/SharedStyling';
-import { auth } from '../../firebase';
 
 export default function Authentication(props) {
   const { navigation } = props;
@@ -26,10 +25,6 @@ export default function Authentication(props) {
     // variables: { limit: 151, offset: 0 },
     // variables: { limit: 6, offset: 0 },
   });
-
-  const handleSignUp = () => {
-    auth.createUserWithEmailAndPassword(email, password)
-  }
 
   LogBox.ignoreLogs(['Warning: ...']);
 
